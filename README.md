@@ -1,4 +1,5 @@
 #### How to run:
+This will probably only work in Chrome.
 ```
 npm install
 node server.js
