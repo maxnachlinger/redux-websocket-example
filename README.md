@@ -1,3 +1,6 @@
-reactjs-websocket-example
-=========================
-A silly port of the reactjs tutorial app using websockets.
+#### How to run:
+```
+npm install
+node server.js
+```
+App is available at: [http://localhost:3000/](http://localhost:3000/)
