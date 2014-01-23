@@ -1,25 +1,14 @@
 /** @jsx React.DOM */
 var socketService = new SocketService();
 
-var Comment = React.createClass({displayName: 'Comment',
-	render: function() {
-		return (
-			React.DOM.div( {className:"comment"}, 
-				React.DOM.h2( {className:"commentAuthor"}, this.props.author),
-				React.DOM.span(null, this.props.children.toString())
-			)
-			);
-	}
-});
-
 var CommentBox = React.createClass({displayName: 'CommentBox',
-	requestComments: function() {
+	requestComments: function () {
 		this.setState({data: []});
 		var socket = this.props.socketService;
 
-		socket.sendRequest({$type: 'commentsRequested'}, function(message) {
+		socket.sendRequest({$type: 'commentsRequested'}, function (message) {
 			if (message.$type === 'dataReceived') {
-				if(!message.data) return;
+				if (!message.data) return;
 				this.state.data.push(message.data);
 			}
 			if (message.$type === 'dataCompleted') {
@@ -31,19 +20,19 @@ var CommentBox = React.createClass({displayName: 'CommentBox',
 			}
 		}.bind(this));
 	},
-	handleCommentSubmit: function(comment) {
+	handleCommentSubmit: function (comment) {
 		var comments = this.state.data;
 		comments.push(comment);
 		this.setState({data: comments});
 		console.log('TODO - submit comment');
 	},
-	getInitialState: function() {
+	getInitialState: function () {
 		return {data: []};
 	},
-	componentWillMount: function() {
+	componentWillMount: function () {
 		this.requestComments();
 	},
-	render: function() {
+	render: function () {
 		return (
 			React.DOM.div( {className:"commentBox"}, 
 				React.DOM.h1(null, "Comments"),
@@ -55,8 +44,19 @@ var CommentBox = React.createClass({displayName: 'CommentBox',
 	}
 });
 
+var Comment = React.createClass({displayName: 'Comment',
+	render: function () {
+		return (
+			React.DOM.div( {className:"comment"}, 
+				React.DOM.h2( {className:"commentAuthor"}, this.props.author),
+				React.DOM.span(null, this.props.children.toString())
+			)
+			);
+	}
+});
+
 var CommentList = React.createClass({displayName: 'CommentList',
-	render: function() {
+	render: function () {
 		var commentNodes = this.props.data.map(function (comment, index) {
 			return Comment( {key:index, author:comment.author}, comment.text);
 		});
@@ -65,7 +65,7 @@ var CommentList = React.createClass({displayName: 'CommentList',
 });
 
 var CommentForm = React.createClass({displayName: 'CommentForm',
-	handleSubmit: function() {
+	handleSubmit: function () {
 		var author = this.refs.author.getDOMNode().value.trim();
 		var text = this.refs.text.getDOMNode().value.trim();
 		this.props.onCommentSubmit({author: author, text: text});
@@ -73,7 +73,7 @@ var CommentForm = React.createClass({displayName: 'CommentForm',
 		this.refs.text.getDOMNode().value = '';
 		return false;
 	},
-	render: function() {
+	render: function () {
 		return (
 			React.DOM.form( {className:"commentForm", onSubmit:this.handleSubmit}, 
 				React.DOM.input( {type:"text", placeholder:"Your name", ref:"author"} ),

@@ -1,25 +1,14 @@
 /** @jsx React.DOM */
 var socketService = new SocketService();
 
-var Comment = React.createClass({
-	render: function() {
-		return (
-			<div className="comment">
-				<h2 className="commentAuthor">{this.props.author}</h2>
-				<span>{this.props.children.toString()}</span>
-			</div>
-			);
-	}
-});
-
 var CommentBox = React.createClass({
-	requestComments: function() {
+	requestComments: function () {
 		this.setState({data: []});
 		var socket = this.props.socketService;
 
-		socket.sendRequest({$type: 'commentsRequested'}, function(message) {
+		socket.sendRequest({$type: 'commentsRequested'}, function (message) {
 			if (message.$type === 'dataReceived') {
-				if(!message.data) return;
+				if (!message.data) return;
 				this.state.data.push(message.data);
 			}
 			if (message.$type === 'dataCompleted') {
@@ -31,19 +20,19 @@ var CommentBox = React.createClass({
 			}
 		}.bind(this));
 	},
-	handleCommentSubmit: function(comment) {
+	handleCommentSubmit: function (comment) {
 		var comments = this.state.data;
 		comments.push(comment);
 		this.setState({data: comments});
 		console.log('TODO - submit comment');
 	},
-	getInitialState: function() {
+	getInitialState: function () {
 		return {data: []};
 	},
-	componentWillMount: function() {
+	componentWillMount: function () {
 		this.requestComments();
 	},
-	render: function() {
+	render: function () {
 		return (
 			<div className="commentBox">
 				<h1>Comments</h1>
@@ -55,8 +44,19 @@ var CommentBox = React.createClass({
 	}
 });
 
+var Comment = React.createClass({
+	render: function () {
+		return (
+			<div className="comment">
+				<h2 className="commentAuthor">{this.props.author}</h2>
+				<span>{this.props.children.toString()}</span>
+			</div>
+			);
+	}
+});
+
 var CommentList = React.createClass({
-	render: function() {
+	render: function () {
 		var commentNodes = this.props.data.map(function (comment, index) {
 			return <Comment key={index} author={comment.author}>{comment.text}</Comment>;
 		});
@@ -65,7 +65,7 @@ var CommentList = React.createClass({
 });
 
 var CommentForm = React.createClass({
-	handleSubmit: function() {
+	handleSubmit: function () {
 		var author = this.refs.author.getDOMNode().value.trim();
 		var text = this.refs.text.getDOMNode().value.trim();
 		this.props.onCommentSubmit({author: author, text: text});
@@ -73,7 +73,7 @@ var CommentForm = React.createClass({
 		this.refs.text.getDOMNode().value = '';
 		return false;
 	},
-	render: function() {
+	render: function () {
 		return (
 			<form className="commentForm" onSubmit={this.handleSubmit}>
 				<input type="text" placeholder="Your name" ref="author" />
