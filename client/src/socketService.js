@@ -13,8 +13,8 @@ function SocketService() {
 		currentMessageId = 0;
 		preConnectionRequests = [];
 		connected = false;
-
-		ws = new WebSocket("ws://" + $location.host() + ':' + $location.port());
+		
+		ws = new WebSocket("ws://" + window.location.hostname + (location.port ? ':' + location.port : ''));
 
 		ws.onopen = function () {
 			connected = true;
