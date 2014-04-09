@@ -13,14 +13,14 @@ function SocketService() {
 		currentMessageId = 0;
 		preConnectionRequests = [];
 		connected = false;
-		
+
 		ws = new WebSocket("ws://" + window.location.hostname + (location.port ? ':' + location.port : ''));
 
 		ws.onopen = function () {
 			connected = true;
 			if (preConnectionRequests.length === 0) return;
 
-			console.log('Sending (%d) requests', preConnectionRequests.length);
+			//console.log('Sending (%d) requests', preConnectionRequests.length);
 			for (var i = 0, c = preConnectionRequests.length; i < c; i++) {
 				ws.send(JSON.stringify(preConnectionRequests[i]));
 			}
@@ -45,24 +45,24 @@ function SocketService() {
 		pendingCallbacks[request.$id] = cb;
 
 		if (!connected) {
-			console.log('Not connected yet, saving request', request);
+			//console.log('Not connected yet, saving request', request);
 			preConnectionRequests.push(request);
 		} else {
-			console.log('Sending request', request);
+			//console.log('Sending request', request);
 			ws.send(JSON.stringify(request));
 		}
 		return request.$id;
 	}
 
 	function listener(message) {
-		console.log('listener, id:', message.$id, 'ws.readyState', ws.readyState);
+		//console.log('listener, id:', message.$id, 'ws.readyState', ws.readyState);
 		// If an object exists with id in our pendingCallbacks object, resolve it
 		if (pendingCallbacks.hasOwnProperty(message.$id))
 			pendingCallbacks[message.$id](message);
 	}
 
 	function requestComplete(id) {
-		console.log("requestComplete:", id, 'ws.readyState', ws.readyState);
+		//console.log("requestComplete:", id, 'ws.readyState', ws.readyState);
 		delete pendingCallbacks[id];
 	}
 
