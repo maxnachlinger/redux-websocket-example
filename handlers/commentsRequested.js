@@ -1,66 +1,33 @@
 "use strict";
-var _ = require('lodash');
-var util = require('util');
-var through = require('through');
-var stream = require('stream');
+
+// prebuild comments
+var comments = new Array(1001).join(',').split(',').map(function (v, i) {
+	i = Math.random() * 101 | 0;
+	return {
+		author: "Test Author " + i,
+		text: "This is a test comment " + i
+	};
+});
 
 module.exports = function (socket, request) {
 	var messageId = request.$id;
-	console.log("request", request);
 
-	getCommentsStream(function(err, ars) {
-		if(err) return handleError(err);
-
-		ars.on('error', handleError);
-		ars.pipe(through(
-			function write(comment) {
-				socket.send(JSON.stringify({$type: 'dataReceived', $id: messageId, data: comment}), function (err) {
-					if (!err || socket.readyState == 3)
-						return; // NOP, disconnected
-
-					console.error(err);
-				});
-			},
-			function end() {
-				socket.send(JSON.stringify({$type: 'dataCompleted', $id: messageId}), function (err) {
-					if (!err || socket.readyState == 3)
-						return; // NOP, disconnected
-
-					console.error(err);
-				});
-			}
-		));
+	comments.forEach(function(c) {
+		send({$type: 'dataReceived', $id: messageId, data: c});
 	});
+	send({$type: 'dataCompleted', $id: messageId});
 
 	function handleError(err) {
-		console.error(err);
-		socket.send(JSON.stringify({$type: 'error', $id: messageId, data: err}));
+		send({$type: 'error', $id: messageId, data: err});
 	}
 
-	function getCommentsStream(cb) {
-		// make lots of comments
-		var input = _.map(_.range(1000), function (i) {
-			i = Math.random()*101|0;
-			return {
-				author: "Test Author " + i,
-				text: "This is a test comment " + i
-			}
+	function send(msg, cb) {
+		cb = cb || function () {};
+
+		socket.send(JSON.stringify(msg), function (err) {
+			if (socket.readyState == 3)
+				return cb(); // NOP, disconnected
+			cb(err);
 		});
-
-		// simple readble-array-stream thing
-		function ArrayReadableStream(data) {
-			var self = this;
-			stream.Readable.call(self, { objectMode: true });
-
-			self._read = function () {
-				data.forEach(function (element) {
-					self.push(element);
-				});
-				self.push(null);
-			};
-		}
-		util.inherits(ArrayReadableStream, stream.Readable);
-
-		cb(null, new ArrayReadableStream(input));
 	}
 };

@@ -20,13 +20,15 @@ function SocketService() {
 			connected = true;
 			if (preConnectionRequests.length === 0) return;
 
-			//console.log('Sending (%d) requests', preConnectionRequests.length);
+			console.log('Sending (%d) requests', preConnectionRequests.length);
 			for (var i = 0, c = preConnectionRequests.length; i < c; i++) {
 				ws.send(JSON.stringify(preConnectionRequests[i]));
 			}
 			preConnectionRequests = [];
 		};
-
+		ws.onclose = function() {
+			connected = false;
+		};
 		ws.onmessage = function (message) {
 			listener(JSON.parse(message.data));
 		};
@@ -66,8 +68,7 @@ function SocketService() {
 		delete pendingCallbacks[id];
 	}
 
-	function reconnect() {
-		console.log('reconnecting');
+	function stopRequest(id) {
 		ws.close();
 		init();
 	}
@@ -81,6 +82,6 @@ function SocketService() {
 
 	service.sendRequest = sendRequest;
 	service.requestComplete = requestComplete;
-	service.reconnect = reconnect;
+	service.stopRequest = stopRequest;
 	return service;
 }
