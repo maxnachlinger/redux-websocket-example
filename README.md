@@ -12,7 +12,7 @@ Since I used Jsx for this example, you'll need to uncomment these lines in index
 <!--<script src="//cdnjs.cloudflare.com/ajax/libs/react/0.8.0/JSXTransformer.js"></script>-->
 <!--
 <script src="src/socketService.js"></script>
-<script type="src/text/jsx" src="example.js"></script>
+<script type="src/text/jsx" src="src/example.js"></script>
 -->
 ```
 and then comment out these lines in index.html:
