@@ -1,0 +1,15 @@
+{
+  "name": "react-websocket-example-server",
+  "version": "0.0.1",
+  "devDependencies": {},
+  "dependencies": {
+    "socket.io": "^1.4.8",
+    "async": "^2.0.0-rc.6",
+    "bunyan": "^1.8.1",
+    "express": "^4.14.0",
+    "lodash": "^4.13.1"
+  },
+  "scripts": {
+    "start": "node app.js"
+  }
+}
