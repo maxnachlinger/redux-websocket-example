@@ -1,18 +1,16 @@
 const port = 3000
 const host = '127.0.0.1'
 
-const messages = [
-  'messages'
+const messageTypes = [
+  'getMessages'
 ].reduce((accum, msg) => {
   accum[msg] = msg
   return accum
 }, {})
 
-const config = {
+module.exports = {
   port,
   host,
-  messages,
+  messageTypes,
   uri: `http://${host}:${port}`
 }
-
-module.exports = config

@@ -14,8 +14,8 @@ class App extends Component {
     const { messages, users } = this.props
     return (
       <div>
-        <MessageList messages={messages} />
-        <UserList users={users} />
+        <MessageList messages={messages}/>
+        <UserList users={users}/>
       </div>
     )
   }

@@ -1,7 +1,8 @@
 const config = require('../../common/config')
+const {messageTypes} = config
 
 module.exports = (socket) => {
-  socket.on(config.messages.messages, () => {
-    socket.emit(config.messages.messages, []) // TODO - get some messages :)
+  socket.on(messageTypes.getMessages, () => {
+    socket.emit(messageTypes.getMessages, []) // TODO - get some messages :)
   })
 }
