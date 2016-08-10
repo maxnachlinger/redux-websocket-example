@@ -1,28 +1,6 @@
-const path = require('path')
-// const webpack = require('webpack')
+const configBase = require('./webpack.config.base')
 
-module.exports = {
-  entry: [
-    path.join(__dirname, '../src/index.js')
-  ],
-  output: {
-    path: path.join(__dirname, '../../server/public'),
-    publicPath: '/',
-    filename: 'bundle.js'
-  },
-  module: {
-    loaders: [
-      {
-        test: [ /\.js$/ ],
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: {
-          presets: [ 'react', 'es2015', 'stage-0' ]
-        }
-      }
-    ]
-  },
-  resolve: {
-    extensions: [ '', '.js', '.jsx' ]
-  }
-}
+module.exports = Object.assign({}, configBase, {
+  devtool: 'source-map',
+  debug: true
+});

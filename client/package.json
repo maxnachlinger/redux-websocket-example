@@ -23,6 +23,6 @@
   },
   "scripts": {
     "prebuild": "standard --verbose | snazzy",
-    "build:dev": "webpack -d --progress --colors --watch --config ./build/webpack.config.dev.js"
+    "build:dev": "webpack --progress --colors --watch --config ./build/webpack.config.dev.js"
   }
 }
