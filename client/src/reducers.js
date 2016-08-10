@@ -1,10 +1,15 @@
 import { combineReducers } from 'redux'
 
-function stuff (state = '', action) {
+function messages (state = [], action) {
+  return state
+}
+
+function users (state = [], action) {
   return state
 }
 
 export default combineReducers({
   socket: (state = {}, action) => state,
-  stuff
+  messages,
+  users
 })

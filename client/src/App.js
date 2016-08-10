@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as actions from './actions'
+import MessageList from './ui/MessageList'
+import UserList from './ui/UserList'
 
 class App extends Component {
   componentWillMount () {
@@ -9,16 +11,18 @@ class App extends Component {
   }
 
   render () {
+    const { messages, users } = this.props
     return (
-      <div>hello</div>
+      <div>
+        <MessageList messages={messages} />
+        <UserList users={users} />
+      </div>
     )
   }
 }
 
 function mapStateToProps (state) {
-  return {
-    store: state
-  }
+  return Object.assign({}, state)
 }
 
 function mapDispatchToProps (dispatch) {
