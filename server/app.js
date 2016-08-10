@@ -1,15 +1,14 @@
-'use strict'
 const http = require('http')
 const express = require('express')
 const socketIo = require('socket.io')
-//const socketEvents = require('./socketEvents')
+const config = require('../common/config')
 const logger = require('./logger')
+const controller = require('./chat/controller')
 
-const port = 3000
 const app = express()
 const server = http.createServer(app)
 const io = socketIo(server, {})
-//socketEvents(io)
+io.on('connection', controller)
 
 app.use(express.static('public')) // for serving the client
 
@@ -26,11 +25,11 @@ function onError (err) {
   process.exit(1)
 }
 
-server.listen(port, (err) => {
+server.listen(config.port, (err) => {
   if (err) {
     return onError(err)
   }
-  logger.info(`Server listening on port: ${port}`)
+  logger.info(`Server listening on port: ${config.port}`)
 })
 
 process.on('uncaughtException', onError)

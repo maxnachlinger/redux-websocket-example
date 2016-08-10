@@ -2,9 +2,10 @@ import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import io from 'socket.io-client'
+import * as config from '../../common/config'
 import rootReducer from './reducers'
 
-const socket = io('http://localhost:3000')
+const socket = io(config.uri)
 
 export default function () {
   const setup = applyMiddleware(

@@ -1,4 +1,3 @@
-'use strict'
 const bunyan = require('bunyan')
 const packageJson = require('./package.json')
 
