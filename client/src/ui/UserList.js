@@ -3,7 +3,7 @@ import React from 'react'
 const User = (props) => {
   return (
     <li>
-      <span>{props.user.get('nick')}</span>
+      <span>{props.user.get('name')}</span>
     </li>
   )
 }
@@ -20,6 +20,6 @@ export default (props) => {
   }
 
   return (
-    <ul>{users.map(user => (<User key={user.get('nick')} user={user}/>))}</ul>
+    <ul>{users.map(user => (<User key={user.get('id')} user={user}/>))}</ul>
   )
 }

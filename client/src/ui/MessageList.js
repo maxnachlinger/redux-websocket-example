@@ -4,7 +4,7 @@ const Message = (props) => {
   const { message } = props
   return (
     <li>
-      <span>{message.get('nick')}</span>
+      <span>{message.get('name')}</span>
       <span>{message.get('createdAt')}</span>
       <span>{message.get('message')}</span>
     </li>
@@ -21,6 +21,6 @@ export default (props) => {
   }
 
   return (
-    <ul>{props.messages.map(message => (<Message key={message.createdAt + message.message} message={message}/>))}</ul>
+    <ul>{props.messages.map(message => (<Message key={message.get('id')} message={message}/>))}</ul>
   )
 }

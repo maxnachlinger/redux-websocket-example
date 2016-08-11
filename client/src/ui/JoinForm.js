@@ -4,8 +4,8 @@ export default class JoinForm extends Component {
   constructor (props) {
     super(props)
     this.onJoinClick = this.onJoinClick.bind(this)
-    this.checkNick = this.checkNick.bind(this)
-    this.state = { valid: false, nick: null }
+    this.checkName = this.checkName.bind(this)
+    this.state = { valid: false, name: null }
   }
 
   onJoinClick (event) {
@@ -13,20 +13,20 @@ export default class JoinForm extends Component {
     if (!this.state.valid) {
       return;
     }
-    this.props.onJoin(this.refs.nickInput.value)
+    this.props.onJoin(this.refs.nameInput.value)
   }
 
-  checkNick (event) {
-    const nick = event.target.value
-    const valid = nick && nick.length > 0
-    this.setState({ valid, nick })
+  checkName (event) {
+    const name = event.target.value
+    const valid = name && name.length > 0
+    this.setState({ valid, name })
 
     // if the enter key was pressed and the form is valid, submit it
     if (!valid || event.type !== 'keydown' || event.keyCode !== 13) {
       return
     }
 
-    this.props.onJoin(nick)
+    this.props.onJoin(name)
   }
 
   render () {
@@ -37,8 +37,8 @@ export default class JoinForm extends Component {
 
     return (
       <div>
-        <input type="text" maxLength="14" placeholder="Your name" ref="nickInput"
-               onKeyDown={this.checkNick} onChange={this.checkNick}/>
+        <input type="text" maxLength="14" placeholder="Your name" ref="nameInput"
+               onKeyDown={this.checkName} onChange={this.checkName}/>
         <button onClick={this.onJoinClick} disabled={submitDisabled}>Join</button>
       </div>
     )

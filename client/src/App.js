@@ -16,8 +16,8 @@ class App extends Component {
     this.props.actions.startUp()
   }
 
-  onJoin (nick) {
-    this.props.actions.join(nick)
+  onJoin (name) {
+    this.props.actions.join(name)
   }
 
   render () {

@@ -8,8 +8,8 @@ export function startUp () {
   }
 }
 
-export function join (nick) {
+export function join (name) {
   return () => {
-    emit(messageTypes.joinRequested, { nick })
+    emit(messageTypes.joinRequested, { name })
   }
 }
