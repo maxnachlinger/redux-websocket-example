@@ -1,4 +1,4 @@
-import Immutable, { List } from 'immutable'
+import Immutable, { List, Map } from 'immutable'
 import { combineReducers } from 'redux-immutable'
 import * as config from '../../common/config'
 const { messageTypes } = config
@@ -12,13 +12,25 @@ const messages = (state = new List(), action) => {
 
 const users = (state = new List(), action) => {
   if (action.type === messageTypes.usersRequested) {
-    return Immutable.fromJS(action.payload || [])
+    return Immutable.fromJS(action.payload)
   }
-  // user joined / left - add/remove from users
+  if ([messageTypes.joinRequested, messageTypes.userJoined].indexOf(action.type) > -1) {
+    return state.push(Immutable.fromJS(action.payload))
+      .sort((user0, user1) => user0.get('nick').localeCompare(user1.get('nick')))
+  }
+
+  return state
+}
+
+const currentUser = (state = new Map(), action) => {
+  if (action.type === messageTypes.joinRequested) {
+    return Immutable.fromJS(action.payload)
+  }
   return state
 }
 
 export default combineReducers({
   messages,
-  users
+  users,
+  currentUser
 })

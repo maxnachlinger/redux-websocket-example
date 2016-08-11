@@ -3,7 +3,7 @@ import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import rootReducer from './reducers'
-import {init} from './actions/websocket'
+import { init } from './actions/websocket'
 
 export default function () {
   const setup = applyMiddleware(

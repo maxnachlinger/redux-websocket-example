@@ -1,5 +1,5 @@
 import * as config from '../../../common/config'
-import {emit} from './websocket'
+import { emit } from './websocket'
 const { messageTypes } = config
 
 export function startUp () {
@@ -8,8 +8,8 @@ export function startUp () {
   }
 }
 
-export function join(nick) {
+export function join (nick) {
   return () => {
-    emit(messageTypes.joinRequested, {nick})
+    emit(messageTypes.joinRequested, { nick })
   }
 }

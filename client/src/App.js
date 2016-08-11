@@ -7,17 +7,32 @@ import UserList from './ui/UserList'
 import JoinForm from './ui/JoinForm'
 
 class App extends Component {
+  constructor (props) {
+    super(props)
+    this.onJoin = this.onJoin.bind(this)
+  }
+
   componentWillMount () {
     this.props.actions.startUp()
   }
 
+  onJoin (nick) {
+    this.props.actions.join(nick)
+  }
+
   render () {
-    const { messages, users, actions } = this.props
+    const { messages, users, currentUser } = this.props
+
+    let joinForm = (<JoinForm onJoin={this.onJoin}/>)
+    if (currentUser.size > 0) {
+      joinForm = null
+    }
+
     return (
       <div>
         <MessageList messages={messages}/>
         <UserList users={users}/>
-        <JoinForm onJoin={(nick) => actions.join(nick)}/>
+        {joinForm}
       </div>
     )
   }
@@ -26,7 +41,8 @@ class App extends Component {
 function mapStateToProps (state) {
   return {
     messages: state.get('messages'),
-    users: state.get('users')
+    users: state.get('users'),
+    currentUser: state.get('currentUser')
   }
 }
 
