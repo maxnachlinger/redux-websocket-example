@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import * as actions from './actions'
 import MessageList from './ui/MessageList'
 import UserList from './ui/UserList'
+import JoinForm from './ui/JoinForm'
 
 class App extends Component {
   componentWillMount () {
@@ -11,11 +12,12 @@ class App extends Component {
   }
 
   render () {
-    const { messages, users } = this.props
+    const { messages, users, actions } = this.props
     return (
       <div>
         <MessageList messages={messages}/>
         <UserList users={users}/>
+        <JoinForm onJoin={(nick) => actions.join(nick)}/>
       </div>
     )
   }

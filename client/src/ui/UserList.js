@@ -1,5 +1,12 @@
 import React from 'react'
-import User from './User'
+
+const User = (props) => {
+  return (
+    <li>
+      <span>{props.user.get('nick')}</span>
+    </li>
+  )
+}
 
 export default (props) => {
   const { users } = props

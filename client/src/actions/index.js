@@ -3,7 +3,13 @@ import {emit} from './websocket'
 const { messageTypes } = config
 
 export function startUp () {
-  return (dispatch, getState) => {
+  return () => {
     emit(messageTypes.usersRequested)
+  }
+}
+
+export function join(nick) {
+  return () => {
+    emit(messageTypes.joinRequested, {nick})
   }
 }
