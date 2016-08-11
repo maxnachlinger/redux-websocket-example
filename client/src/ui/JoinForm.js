@@ -13,7 +13,7 @@ export default class JoinForm extends Component {
     if (!this.state.valid) {
       return;
     }
-    this.props.onJoin(this.refs.nameInput.value)
+    this.props.join(this.refs.nameInput.value)
   }
 
   checkName (event) {
@@ -22,11 +22,9 @@ export default class JoinForm extends Component {
     this.setState({ valid, name })
 
     // if the enter key was pressed and the form is valid, submit it
-    if (!valid || event.type !== 'keydown' || event.keyCode !== 13) {
-      return
+    if (valid && event.type === 'keydown' && event.keyCode === 13) {
+      this.props.join(name)
     }
-
-    this.props.onJoin(name)
   }
 
   render () {

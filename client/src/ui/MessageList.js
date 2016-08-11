@@ -4,7 +4,7 @@ const Message = (props) => {
   const { message } = props
   return (
     <li>
-      <span>{message.get('name')}</span>
+      <span>{message.get('username')}</span>
       <span>{message.get('createdAt')}</span>
       <span>{message.get('message')}</span>
     </li>

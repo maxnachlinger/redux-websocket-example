@@ -15,7 +15,7 @@ const users = (state = new List(), action) => {
     return Immutable.fromJS(action.payload)
   }
 
-  if ([ messageTypes.joinRequested, messageTypes.userJoined ].indexOf(action.type) > -1) {
+  if (action.type === messageTypes.joinRequested) {
     return state.push(Immutable.fromJS(action.payload))
       .sort((user0, user1) => user0.get('name').localeCompare(user1.get('name')))
   }

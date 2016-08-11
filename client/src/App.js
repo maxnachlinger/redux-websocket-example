@@ -5,34 +5,41 @@ import * as actions from './actions'
 import MessageList from './ui/MessageList'
 import UserList from './ui/UserList'
 import JoinForm from './ui/JoinForm'
+import SendMessageForm from './ui/SendMessageForm'
 
 class App extends Component {
   constructor (props) {
     super(props)
-    this.onJoin = this.onJoin.bind(this)
+    this.join = this.join.bind(this)
+    this.sendMessage = this.sendMessage.bind(this)
   }
 
   componentWillMount () {
     this.props.actions.startUp()
   }
 
-  onJoin (name) {
+  join (name) {
     this.props.actions.join(name)
+  }
+
+  sendMessage (message) {
+    this.props.actions.sendMessage(message)
   }
 
   render () {
     const { messages, users, currentUser } = this.props
 
-    let joinForm = (<JoinForm onJoin={this.onJoin}/>)
+    let form = (<JoinForm join={this.join}/>)
+
     if (currentUser.size > 0) {
-      joinForm = null
+      form = (<SendMessageForm sendMessage={this.sendMessage}/>)
     }
 
     return (
       <div>
         <MessageList messages={messages}/>
         <UserList users={users}/>
-        {joinForm}
+        {form}
       </div>
     )
   }

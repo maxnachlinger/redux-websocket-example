@@ -3,6 +3,15 @@ const config = require('../common/config')
 const chatBot = require('./chatBot')
 const { messageTypes } = config
 
+function sendChatMessage (io, username, message) {
+  return io.sockets.emit(messageTypes.messageAdded, {
+    username,
+    message,
+    id: uuid.v4(),
+    createdAt: Date.now()
+  })
+}
+
 function onUsersRequested (event, io, socket) {
   const sockets = io.sockets.sockets || {}
 
@@ -12,26 +21,35 @@ function onUsersRequested (event, io, socket) {
     .map((key) => sockets[ key ].user)
     .concat([ chatBot.user ]) // add our chatbot
 
-  socket.emit(event, users)
+  return socket.emit(event, users)
 }
 
-function onJoinRequested (event, socket, data) {
-  socket.user = { id: uuid.v4(), name: data.name }
-  socket.emit(event, data)
-  socket.broadcast.emit(messageTypes.userJoined, data)
+function onJoinRequested (event, io, socket, data) {
+  const user = { id: uuid.v4(), name: data.name }
+  socket.user = user
+
+  socket.emit(event, user)
+  io.sockets.emit(messageTypes.userJoined, user)
+
+  return sendChatMessage(io, chatBot.user.name, 'Welcome, ' + data.name)
 }
 
-function onDisconnect (socket) {
+function onMessageAdded (event, io, socket, data) {
+  return sendChatMessage(io, socket.user.name, data.message)
+}
+
+function onDisconnect (io, socket) {
   if (!socket.user) {
     return
   }
-  socket.broadcast.emit(messageTypes.userLeft, socket.user);
+  return io.sockets.emit(messageTypes.userLeft, socket.user);
 }
 
 function addListenersToSocket (io, socket) {
-  socket.on(messageTypes.usersRequested, (data) => onUsersRequested(messageTypes.usersRequested, io, socket))
-  socket.on(messageTypes.joinRequested, (data) => onJoinRequested(messageTypes.joinRequested, socket, data))
-  socket.on('disconnect', () => onDisconnect(socket))
+  socket.on(messageTypes.usersRequested, () => onUsersRequested(messageTypes.usersRequested, io, socket))
+  socket.on(messageTypes.joinRequested, (data) => onJoinRequested(messageTypes.joinRequested, io, socket, data))
+  socket.on(messageTypes.messageAdded, (data) => onMessageAdded(messageTypes.messageAdded, io, socket, data))
+  socket.on('disconnect', () => onDisconnect(io, socket))
 }
 
 module.exports.init = (io) => {

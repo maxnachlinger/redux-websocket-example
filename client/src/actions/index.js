@@ -13,3 +13,9 @@ export function join (name) {
     emit(messageTypes.joinRequested, { name })
   }
 }
+
+export function sendMessage (message) {
+  return () => {
+    emit(messageTypes.messageAdded, { message })
+  }
+}
