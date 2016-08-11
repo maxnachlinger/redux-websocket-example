@@ -1,7 +1,8 @@
 import React from 'react'
-export default (props) => (
-  <div>
-    <span>{props.online ? '*' : null}</span>
-    <span>{props.nick}</span>
-  </div>
-)
+export default (props) => {
+  return (
+    <li>
+      <span>{props.user.get('nick')}</span>
+    </li>
+  )
+}

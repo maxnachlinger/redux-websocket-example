@@ -1,8 +1,8 @@
 import React from 'react'
 export default (props) => (
-  <div>
+  <li>
     <span>{props.nick}</span>
     <span>{props.createdAt}</span>
     <span>{props.message}</span>
-  </div>
+  </li>
 )

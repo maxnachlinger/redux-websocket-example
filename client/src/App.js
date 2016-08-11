@@ -22,7 +22,10 @@ class App extends Component {
 }
 
 function mapStateToProps (state) {
-  return Object.assign({}, state)
+  return {
+    messages: state.get('messages'),
+    users: state.get('users')
+  }
 }
 
 function mapDispatchToProps (dispatch) {
