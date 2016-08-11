@@ -3,12 +3,12 @@ const express = require('express')
 const socketIo = require('socket.io')
 const config = require('../common/config')
 const logger = require('./logger')
-const controller = require('./chat/controller')
+const controller = require('./controllers')
 
 const app = express()
 const server = http.createServer(app)
 const io = socketIo(server, {})
-io.on('connection', controller)
+io.on('connection', controller.init)
 
 app.use(express.static('public')) // for serving the client
 
