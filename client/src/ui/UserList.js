@@ -20,6 +20,9 @@ export default (props) => {
   }
 
   return (
-    <ul>{users.map(user => (<User key={user.get('id')} user={user}/>))}</ul>
+    <div>
+      <h2>Users</h2>
+      <ul>{users.map(user => (<User key={user.get('id')} user={user}/>))}</ul>
+    </div>
   )
 }

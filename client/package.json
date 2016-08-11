@@ -25,6 +25,6 @@
   },
   "scripts": {
     "prebuild": "standard --verbose | snazzy",
-    "build:dev": "webpack --progress --colors --watch --display-error-details --config ./build/webpack.config.dev.js"
+    "start": "webpack --progress --colors --watch --display-error-details --config ./build/webpack.config.dev.js"
   }
 }
