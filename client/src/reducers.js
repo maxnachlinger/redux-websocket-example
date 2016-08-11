@@ -10,6 +10,9 @@ function messages (state = [], action) {
 }
 
 function users (state = [], action) {
+  if (action.type === messageTypes.getUsers) {
+    state = action.payload;
+  }
   return state
 }
 
