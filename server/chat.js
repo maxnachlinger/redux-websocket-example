@@ -14,15 +14,25 @@ function onUsersRequested (event, io, socket) {
   socket.emit(event, users)
 }
 
-function onJoinRequested (event, io, socket, data) {
+function onJoinRequested (event, socket, data) {
   socket.nick = data.nick
   socket.emit(event, data)
-  socket.broadcast.emit('userJoined', data)
+  socket.broadcast.emit(messageTypes.userJoined, data)
+}
+
+function onDisconnect (socket) {
+  if (!socket.nick) {
+    return
+  }
+  socket.broadcast.emit(messageTypes.userLeft, {
+    nick: socket.nick
+  });
 }
 
 function addListenersToSocket (io, socket) {
   socket.on(messageTypes.usersRequested, (data) => onUsersRequested(messageTypes.usersRequested, io, socket))
-  socket.on(messageTypes.joinRequested, (data) => onJoinRequested(messageTypes.joinRequested, io, socket, data))
+  socket.on(messageTypes.joinRequested, (data) => onJoinRequested(messageTypes.joinRequested, socket, data))
+  socket.on('disconnect', () => onDisconnect(socket))
 }
 
 module.exports.init = (io) => {

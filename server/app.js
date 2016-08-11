@@ -22,7 +22,7 @@ app.use((err, req, res, next) => {
 })
 
 function onError (err) {
-  logger.error({ err })
+  logger.error(err)
   process.exit(1)
 }
 
