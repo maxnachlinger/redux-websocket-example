@@ -1,6 +1,7 @@
 # react/redux websocket example
 
 ### Installation:
+Note: This requires a recent version of NodeJS to work.
 ```shell
 git clone git@github.com:maxnachlinger/react-websocket-example.git
 
@@ -26,5 +27,4 @@ The app runs at [http://localhost:3000](http://localhost:3000)
 
 ### TODO
 - Add CSS - dear God the UI is awful :)
-- Extract vendor code into it's own bundle (Webpack fun)
 - Make a prod webpack build. This is a rather low priority as no one should ever use this in production :)
