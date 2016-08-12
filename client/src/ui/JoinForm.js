@@ -9,9 +9,9 @@ export default class JoinForm extends Component {
   }
 
   onJoinClick (event) {
-    event.preventDefault();
+    event.preventDefault()
     if (!this.state.valid) {
-      return;
+      return
     }
     this.props.join(this.refs.nameInput.value)
   }
@@ -35,8 +35,7 @@ export default class JoinForm extends Component {
 
     return (
       <div>
-        <input type="text" maxLength="14" placeholder="Your name" ref="nameInput"
-               onKeyDown={this.checkName} onChange={this.checkName}/>
+        <input type='text' maxLength='14' placeholder='Your name' ref='nameInput' onKeyDown={this.checkName} onChange={this.checkName} />
         <button onClick={this.onJoinClick} disabled={submitDisabled}>Join</button>
       </div>
     )

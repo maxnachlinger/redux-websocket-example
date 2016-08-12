@@ -11,17 +11,16 @@ const messages = (state = new List(), action) => {
 }
 
 const users = (state = new List(), action) => {
-  if (action.type === messageTypes.usersRequested) {
-    return Immutable.fromJS(action.payload)
+  const mapping = {
+    [messageTypes.usersRequested]: (state, action) => Immutable.fromJS(action.payload),
+    [messageTypes.joinRequested]: (state, action) => state.push(Immutable.fromJS(action.payload))
+      .sort((user0, user1) => user0.get('name').localeCompare(user1.get('name'))),
+    [messageTypes.userLeft]: (state, action) => state.filter((user) => user.get('id') !== action.payload.id)
   }
 
-  if (action.type === messageTypes.joinRequested) {
-    return state.push(Immutable.fromJS(action.payload))
-      .sort((user0, user1) => user0.get('name').localeCompare(user1.get('name')))
-  }
-
-  if (action.type === messageTypes.userLeft) {
-    return state.filter((user) => user.get('id') !== action.payload.id)
+  const handler = mapping[ action.type ]
+  if (handler) {
+    return handler(state, action)
   }
 
   return state
