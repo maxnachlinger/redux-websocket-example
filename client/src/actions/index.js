@@ -19,3 +19,15 @@ export function sendMessage (message) {
     emit(messageTypes.messageAdded, { message })
   }
 }
+
+export function typing() {
+  return () => {
+    emit(messageTypes.userStartedTyping)
+  }
+}
+
+export function typingStopped() {
+  return () => {
+    emit(messageTypes.userStoppedTyping)
+  }
+}

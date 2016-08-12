@@ -12,7 +12,7 @@ function sendChatMessage (io, username, message) {
   })
 }
 
-function onUsersRequested (event, io, socket) {
+function onUsersRequested (event, io, socket, data) {
   const sockets = io.sockets.sockets || {}
 
   // only pull back sockets for joined users

@@ -7,10 +7,7 @@ export default class SendMessageForm extends Component {
     this.onSendClick = this.onSendClick.bind(this)
     this.checkMessage = this.checkMessage.bind(this)
 
-    this.typing = false
-    this.checkTyping = this.checkTyping.bind(this)
-
-    this.state = { valid: false, name: null }
+    this.state = { valid: false, name: null, typing: false, lastTypingTime: 0 }
   }
 
   onSendClick (event) {
@@ -18,6 +15,12 @@ export default class SendMessageForm extends Component {
     if (!this.state.valid) {
       return
     }
+
+    if (this.state.typing) {
+      this.state.typing = false
+      this.props.typingStopped()
+    }
+
     this.props.sendMessage(this.refs.messageInput.value)
     this.refs.messageInput.value = ''
   }
@@ -28,13 +31,6 @@ export default class SendMessageForm extends Component {
     this.setState({ valid, message })
   }
 
-  checkTyping (event) {
-    if (!this.typing) {
-      this.typing = true
-    }
-    // TODO
-  }
-
   render () {
     let submitDisabled = true
     if (this.state.valid) {
@@ -43,7 +39,8 @@ export default class SendMessageForm extends Component {
 
     return (
       <div>
-        <textarea ref='messageInput' placeholder='Say something nice' maxLength='500' onKeyDown={this.checkTyping} onChange={this.checkMessage}></textarea>
+        <textarea ref='messageInput' placeholder='Say something nice' maxLength='500'
+          onChange={this.checkMessage}></textarea>
         <button onClick={this.onSendClick} disabled={submitDisabled}>Send</button>
       </div>
     )

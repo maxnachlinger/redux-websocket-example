@@ -26,6 +26,5 @@ The app runs at [http://localhost:3000](http://localhost:3000)
 
 ### TODO
 - Add CSS - probably via [Radium](https://github.com/FormidableLabs/radium) - dear God the UI is awful :)
-- Add "user is typing" / "user has stopped typing" messaging
 - Extract vendor code into it's own bundle (Webpack fun)
 - Make a prod webpack build. This is a rather low priority as no one should ever use this in production :)
