@@ -7,7 +7,7 @@ export default class SendMessageForm extends Component {
     this.onSendClick = this.onSendClick.bind(this)
     this.checkMessage = this.checkMessage.bind(this)
 
-    this.state = { valid: false, name: null, typing: false, lastTypingTime: 0 }
+    this.state = { valid: false, name: null }
   }
 
   onSendClick (event) {
