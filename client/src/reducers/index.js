@@ -1,6 +1,6 @@
 import Immutable, { List, Map } from 'immutable'
 import { combineReducers } from 'redux-immutable'
-import * as config from '../../common/config'
+import * as config from '../../../common/config'
 const { messageTypes } = config
 
 const messages = (state = new List(), action) => {

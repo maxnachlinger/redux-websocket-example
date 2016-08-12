@@ -40,21 +40,21 @@ class App extends Component {
   render () {
     const { messages, users, currentUser } = this.props
 
-    let form = (<JoinForm join={this.join}/>)
+    let form = (<JoinForm join={this.join} />)
 
     if (currentUser.size > 0) {
       form = (
         <SendMessageForm
           typing={this.typing}
           typingStopped={this.typingStopped}
-          sendMessage={this.sendMessage}/>
+          sendMessage={this.sendMessage} />
       )
     }
 
     return (
       <div>
-        <MessageList messages={messages}/>
-        <UserList users={users}/>
+        <MessageList messages={messages} />
+        <UserList users={users} />
         {form}
       </div>
     )

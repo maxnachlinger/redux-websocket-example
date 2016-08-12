@@ -3,7 +3,8 @@ import { emit } from './websocket'
 const { messageTypes } = config
 
 export function startUp () {
-  return () => {
+  // this is the redux-middleware package in action, the (currently unused) dispatch and getState params are passed in
+  return (/*dispatch, getState*/) => {
     emit(messageTypes.usersRequested)
   }
 }
@@ -20,13 +21,13 @@ export function sendMessage (message) {
   }
 }
 
-export function typing() {
+export function typing () {
   return () => {
     emit(messageTypes.userStartedTyping)
   }
 }
 
-export function typingStopped() {
+export function typingStopped () {
   return () => {
     emit(messageTypes.userStoppedTyping)
   }
