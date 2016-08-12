@@ -1,4 +1,5 @@
+.DS_Store
 node_modules
-npm-debug.log
+*.log
 .idea
-server/public/*
+server/public/
