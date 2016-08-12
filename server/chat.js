@@ -31,7 +31,7 @@ function onJoinRequested (event, io, socket, data) {
   socket.emit(event, user)
   io.sockets.emit(messageTypes.userJoined, user)
 
-  return sendChatMessage(io, chatBot.user.name, 'Welcome, ' + data.name)
+  return sendChatMessage(io, chatBot.user.name, chatBot.welcomeUser(data))
 }
 
 function onMessageAdded (event, io, socket, data) {
@@ -46,7 +46,7 @@ function onDisconnect (io, socket) {
 }
 
 function addListenersToSocket (io, socket) {
-  socket.on(messageTypes.usersRequested, () => onUsersRequested(messageTypes.usersRequested, io, socket))
+  socket.on(messageTypes.usersRequested, (data) => onUsersRequested(messageTypes.usersRequested, io, socket, data))
   socket.on(messageTypes.joinRequested, (data) => onJoinRequested(messageTypes.joinRequested, io, socket, data))
   socket.on(messageTypes.messageAdded, (data) => onMessageAdded(messageTypes.messageAdded, io, socket, data))
   socket.on('disconnect', () => onDisconnect(io, socket))

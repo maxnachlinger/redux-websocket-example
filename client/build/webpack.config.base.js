@@ -1,15 +1,37 @@
 const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const pkg = require('../package.json')
 
 module.exports = {
   context: path.join(__dirname, '/../'),
-  entry: [
-    './src/index.js'
-  ],
+  entry: {
+    app: './src/index.js',
+    vendor: Object.keys(pkg.dependencies)
+  },
   output: {
     path: '../server/public',
     publicPath: '/',
-    filename: 'bundle.js'
+    filename: 'app.min-[hash:6].js'
   },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.min-[hash:6].js',
+      minChunks: Infinity
+    }),
+    new HtmlWebpackPlugin({
+      title: 'React/Redux Websocket Example',
+      favicon: path.join(__dirname, '/favicon.ico'),
+      template: path.join(__dirname, '/index.html.ejs'),
+      inject: true,
+      appMountId: 'root',
+      mobile: true,
+      minify: {
+        collapseWhitespace: true
+      }
+    })
+  ],
   module: {
     loaders: [
       {
