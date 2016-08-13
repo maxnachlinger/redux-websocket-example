@@ -30,6 +30,7 @@
   "scripts": {
     "prebuild": "standard --verbose | snazzy",
     "clean": "rm -rf ../server/public/*",
-    "start": "webpack --progress --colors --watch --display-error-details --config ./build/webpack.config.dev.js"
+    "start": "webpack --progress --colors --watch --display-error-details --config ./build/webpack.config.dev.js",
+    "build": "webpack --progress --colors --display-error-details --bail --config ./build/webpack.config.prod.js"
   }
 }

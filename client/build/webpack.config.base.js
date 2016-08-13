@@ -19,10 +19,10 @@ module.exports = {
     filename: 'app.min-[hash:6].js' // the [hash:6] bit here helps us control browser caching
   },
   plugins: [
-    // makes various favicons and injects the html for them
-    new FaviconsWebpackPlugin(path.join(__dirname, '/logo.png')),
     // don't emit assets with errors
     new webpack.NoErrorsPlugin(),
+    // makes various favicons and injects the html for them
+    new FaviconsWebpackPlugin(path.join(__dirname, '/logo.png')),
     // creates a vendor.js file will all our external dependencies - this can be aggressively cached
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
@@ -47,7 +47,9 @@ module.exports = {
       {
         test: [ /\.js$/ ],
         exclude: /node_modules/,
-        include: path.resolve('.'),
+        include: [
+          path.resolve('.')
+        ],
         loader: 'babel',
         query: {
           presets: [ 'react', 'es2015', 'stage-0' ]

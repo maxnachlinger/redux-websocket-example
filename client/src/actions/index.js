@@ -1,10 +1,11 @@
+// the above tells the standard checker to ignore the fact that __DEV__ is not defined
 import * as config from '../../../common/config'
 import { emit } from './websocket'
 const { messageTypes } = config
 
 export function startUp () {
   // this is the redux-middleware package in action, the (currently unused) dispatch and getState params are passed in
-  return (/*dispatch, getState*/) => {
+  return (/* dispatch, getState */) => {
     emit(messageTypes.usersRequested)
   }
 }

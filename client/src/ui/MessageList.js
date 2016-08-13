@@ -27,7 +27,7 @@ export default (props) => {
   return (
     <div>
       <h2>Messages</h2>
-      <ul>{props.messages.map(message => (<Message key={message.get('id')} message={message}/>))}</ul>
+      <ul>{props.messages.map(message => (<Message key={message.get('id')} message={message} />))}</ul>
     </div>
   )
 }

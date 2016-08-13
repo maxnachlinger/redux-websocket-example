@@ -1,3 +1,4 @@
+/* global __DEV__ */
 import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -11,9 +12,9 @@ import rootReducer from './reducers'
 import { init } from './actions/websocket'
 
 function startUp () {
-  const middleware = [thunkMiddleware]
+  const middleware = [ thunkMiddleware ]
   // use the logger in development mode - this is set in webpack.config.dev.js
-  if(__DEV__) {
+  if (__DEV__) {
     middleware.push(createLogger())
   }
 
