@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 const pkg = require('../package.json')
 
 module.exports = {
@@ -18,6 +19,10 @@ module.exports = {
     filename: 'app.min-[hash:6].js' // the [hash:6] bit here helps us control browser caching
   },
   plugins: [
+    // makes various favicons and injects the html for them
+    new FaviconsWebpackPlugin(path.join(__dirname, '/logo.png')),
+    // don't emit assets with errors
+    new webpack.NoErrorsPlugin(),
     // creates a vendor.js file will all our external dependencies - this can be aggressively cached
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
@@ -27,7 +32,6 @@ module.exports = {
     // writes out our index.html
     new HtmlWebpackPlugin({
       title: 'React/Redux Websocket Example',
-      favicon: path.join(__dirname, '/favicon.ico'),
       template: path.join(__dirname, '/index.html.ejs'),
       inject: true,
       appMountId: 'root',
