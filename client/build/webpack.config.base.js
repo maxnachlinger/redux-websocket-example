@@ -4,9 +4,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 const pkg = require('../package.json')
 
+const srcDir = path.join(__dirname, '/../')
+
 module.exports = {
   // root directory used to resolve paths
-  context: path.join(__dirname, '/../'),
+  context: srcDir,
   entry: {
     app: './src/index.js',
     // everything that's in dependencies (not a devDependencies) in our package.json file will be bundled into vendor.js
@@ -48,7 +50,8 @@ module.exports = {
         test: [ /\.js$/ ],
         exclude: /node_modules/,
         include: [
-          path.resolve('.')
+          srcDir,
+          path.join(srcDir, '/../../common/')
         ],
         loader: 'babel',
         query: {

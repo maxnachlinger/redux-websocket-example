@@ -12,12 +12,14 @@ const plugins = [
     }
   }),
   new webpack.optimize.DedupePlugin(),
-  new webpack.optimize.OccurrenceOrderPlugin(true),
+  new webpack.optimize.OccurrenceOrderPlugin(true)
+  /*
   new webpack.optimize.UglifyJsPlugin({
     compress: {
       warnings: false
     }
   })
+  */
 ].concat(configBase.plugins)
 
 module.exports = Object.assign({}, configBase, {
