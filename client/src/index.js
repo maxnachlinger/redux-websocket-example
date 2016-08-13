@@ -11,10 +11,13 @@ import rootReducer from './reducers'
 import { init } from './actions/websocket'
 
 function startUp () {
-  const setup = applyMiddleware(
-    thunkMiddleware,
-    createLogger()
-  )(createStore)
+  const middleware = [thunkMiddleware]
+  // use the logger in development mode - this is set in webpack.config.dev.js
+  if(__DEV__) {
+    middleware.push(createLogger())
+  }
+
+  const setup = applyMiddleware(...middleware)(createStore)
 
   const store = setup(rootReducer, new Immutable.Map())
   init(store)
