@@ -1,17 +1,5 @@
 import React from 'react'
-import dateformat from 'dateformat'
-
-const Message = (props) => {
-  const { message } = props
-
-  return (
-    <li>
-      <span>{dateformat(message.get('createdAt'), 'HH:MM:ss')}</span>
-      <span>{message.get('username')}</span>
-      <span>{message.get('message')}</span>
-    </li>
-  )
-}
+import Message from './Message'
 
 export default (props) => {
   const { messages } = props
