@@ -1,5 +1,7 @@
 # react/redux websocket example
 
+[![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+
 ### Installation:
 Note: This requires a recent version of NodeJS to work.
 ```shell

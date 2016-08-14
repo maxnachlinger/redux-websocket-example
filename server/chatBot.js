@@ -1,7 +1,5 @@
-const uuid = require('node-uuid')
-
 module.exports.user = {
-  id: uuid.v4(),
+  id: '00000000-0000-0000-0000-000000000000',
   name: 'chat-bot'
 }
 

@@ -33,7 +33,7 @@ class App extends Component {
   }
 
   render () {
-    const { messages, users, currentUser } = this.props
+    const { messages, users, currentUser, userIdsTyping } = this.props
 
     let form = (<JoinForm join={this.join} />)
 
@@ -48,7 +48,9 @@ class App extends Component {
     return (
       <div>
         <MessageList messages={messages} />
-        <UserList users={users} />
+        <UserList
+          userIdsTyping={userIdsTyping}
+          users={users} />
         {form}
       </div>
     )
@@ -59,7 +61,8 @@ function mapStateToProps (state) {
   return {
     messages: state.get('messages'),
     users: state.get('users'),
-    currentUser: state.get('currentUser')
+    currentUser: state.get('currentUser'),
+    userIdsTyping: state.get('userIdsTyping')
   }
 }
 

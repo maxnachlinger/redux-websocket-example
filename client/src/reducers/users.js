@@ -1,4 +1,4 @@
-import Immutable, { List } from 'immutable'
+import Immutable, { List, Map } from 'immutable'
 import * as config from '../../../common/config'
 const { messageTypes } = config
 
@@ -18,6 +18,19 @@ const users = (state = new List(), action) => {
   return state
 }
 
+// stored as a Map since it's easier to check for individiual user-ids
+const userIdsTyping = (state = new Map(), action) => {
+  if (action.type === messageTypes.userStartedTyping) {
+    return state.set(action.payload.userId, true)
+  }
+
+  if (action.type === messageTypes.userStoppedTyping) {
+    return state.delete(action.payload.userId)
+  }
+  return state
+}
+
 export {
-  users
+  users,
+  userIdsTyping
 }
