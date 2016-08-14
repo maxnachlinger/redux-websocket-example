@@ -2,13 +2,17 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
+const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin')
 const pkg = require('../package.json')
 
 const srcDir = path.join(__dirname, '/../')
+const outputDir = path.join(__dirname, '/../../server/public')
 
 module.exports = {
   // root directory used to resolve paths
   context: srcDir,
+  // Store/Load compiler state from/to a json file. This will result in persistent ids of modules and chunks.
+  recordsPath: path.join(outputDir, '/manifests/records.json'),
   entry: {
     app: './src/index.js',
     // everything that's in dependencies (not a devDependencies) in our package.json file will be bundled into vendor.js
@@ -16,21 +20,26 @@ module.exports = {
   },
   // we'll output everything to /server/public
   output: {
-    path: '../server/public',
+    path: outputDir,
     publicPath: '/',
     filename: 'app.min-[hash:6].js' // the [hash:6] bit here helps us control browser caching
   },
   plugins: [
     // don't emit assets with errors
     new webpack.NoErrorsPlugin(),
-    // makes various favicons and injects the html for them
-    new FaviconsWebpackPlugin(path.join(__dirname, '/logo.png')),
+    new ChunkManifestPlugin({
+      // This is relative to the main webpack output dir
+      filename: './manifests/chunks.json',
+      manifestVariable: 'webpackManifest'
+    }),
     // creates a vendor.js file will all our external dependencies - this can be aggressively cached
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       filename: 'vendor.min-[hash:6].js',
       minChunks: Infinity
     }),
+    // makes various favicons and injects the html for them
+    new FaviconsWebpackPlugin(path.join(__dirname, '/logo.png')),
     // writes out our index.html
     new HtmlWebpackPlugin({
       title: 'React/Redux Websocket Example',
