@@ -3,11 +3,14 @@ import * as config from '../../../common/config'
 const { messageTypes } = config
 
 const users = (state = new List(), action) => {
+  const addUser = (user) => state.push(Immutable.fromJS(user))
+    .sort((user0, user1) => user0.get('name').localeCompare(user1.get('name')));
+
   const mapping = {
     [messageTypes.usersRequested]: (state, action) => Immutable.fromJS(action.payload),
-    [messageTypes.joinRequested]: (state, action) => state.push(Immutable.fromJS(action.payload))
-      .sort((user0, user1) => user0.get('name').localeCompare(user1.get('name'))),
-    [messageTypes.userLeft]: (state, action) => state.filter((user) => user.get('id') !== action.payload.id)
+    [messageTypes.userLeft]: (state, action) => state.filter((user) => user.get('id') !== action.payload.id),
+    [messageTypes.joinRequested]: (state, action) => addUser(action.payload),
+    [messageTypes.userJoined]: (state, action) => addUser(action.payload)
   }
 
   const handler = mapping[ action.type ]

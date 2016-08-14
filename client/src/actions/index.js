@@ -32,7 +32,7 @@ export function sendMessage (message) {
 }
 
 export function typing () {
-  const typingTimerLength = 1000
+  const typingTimerLength = 400
 
   return (dispatch, getState) => {
 
