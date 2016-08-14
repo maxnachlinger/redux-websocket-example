@@ -4,7 +4,7 @@ import { emit } from './websocket'
 const { messageTypes } = config
 
 export function startUp () {
-  // this is the redux-middleware package in action, the (currently unused) dispatch and getState params are passed in
+  // this is the redux-middleware package in action, dispatch and getState params are passed in
   return (/* dispatch, getState */) => {
     emit(messageTypes.usersRequested)
   }
@@ -40,6 +40,6 @@ export function typing () {
         dispatch({ type: actionTypes.typingStopped })
         emit(messageTypes.userStoppedTyping)
       }
-    }, typingTimerLength);
+    }, typingTimerLength)
   }
 }
