@@ -5,7 +5,8 @@ export default class SendMessageForm extends Component {
     super(props)
 
     this.onSendClick = this.onSendClick.bind(this)
-    this.checkMessage = this.checkMessage.bind(this)
+    this.onTextareaKeyDown = this.onTextareaKeyDown.bind(this)
+    this.onTextareaChange = this.onTextareaChange.bind(this)
 
     this.state = { valid: false, name: null }
   }
@@ -25,10 +26,14 @@ export default class SendMessageForm extends Component {
     this.refs.messageInput.value = ''
   }
 
-  checkMessage (event) {
+  onTextareaChange (event) {
     const message = event.target.value
     const valid = message && message.length > 0
     this.setState({ valid, message })
+  }
+
+  onTextareaKeyDown (event) {
+    this.props.typing()
   }
 
   render () {
@@ -40,7 +45,7 @@ export default class SendMessageForm extends Component {
     return (
       <div>
         <textarea ref='messageInput' placeholder='Say something nice' maxLength='500'
-          onChange={this.checkMessage}></textarea>
+          onChange={this.onTextareaChange} onKeyDown={this.onTextareaKeyDown}></textarea>
         <button onClick={this.onSendClick} disabled={submitDisabled}>Send</button>
       </div>
     )

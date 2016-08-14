@@ -1,4 +1,5 @@
 /* global __DEV__ */
+// the above tells the standard checker to ignore the fact that __DEV__ is not defined
 import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'

@@ -1,5 +1,5 @@
-// the above tells the standard checker to ignore the fact that __DEV__ is not defined
 import * as config from '../../../common/config'
+import * as actionTypes from '../actions/actionTypes'
 import { emit } from './websocket'
 const { messageTypes } = config
 
@@ -23,13 +23,22 @@ export function sendMessage (message) {
 }
 
 export function typing () {
-  return () => {
-    emit(messageTypes.userStartedTyping)
-  }
-}
+  const typingTimerLength = 1000
 
-export function typingStopped () {
-  return () => {
-    emit(messageTypes.userStoppedTyping)
+  return (dispatch, getState) => {
+    dispatch({ type: actionTypes.typing })
+
+    emit(messageTypes.userStartedTyping)
+    const lastTypingTime = Date.now()
+
+    setTimeout(() => {
+      const typing = getState().get('typing')
+      const timeDiff = Date.now() - lastTypingTime
+
+      if (timeDiff >= typingTimerLength && typing) {
+        dispatch({ type: actionTypes.stoppedTyping })
+        emit(messageTypes.userStoppedTyping)
+      }
+    }, typingTimerLength);
   }
 }

@@ -1,6 +1,7 @@
 import Immutable, { List, Map } from 'immutable'
 import { combineReducers } from 'redux-immutable'
 import * as config from '../../../common/config'
+import * as actionTypes from '../actions/actionTypes'
 const { messageTypes } = config
 
 const messages = (state = new List(), action) => {
@@ -33,8 +34,19 @@ const currentUser = (state = new Map(), action) => {
   return state
 }
 
+const typing = (state = false, action) => {
+  if (action.type === actionTypes.typing) {
+    return true
+  }
+  if (action.type === actionTypes.stoppedTyping) {
+    return false
+  }
+  return state
+}
+
 export default combineReducers({
   messages,
   users,
-  currentUser
+  currentUser,
+  typing
 })

@@ -14,7 +14,6 @@ class App extends Component {
     this.join = this.join.bind(this)
     this.sendMessage = this.sendMessage.bind(this)
     this.typing = this.typing.bind(this)
-    this.typingStopped = this.typingStopped.bind(this)
   }
 
   componentWillMount () {
@@ -33,10 +32,6 @@ class App extends Component {
     this.props.actions.typing()
   }
 
-  typingStopped () {
-    this.props.actions.typingStopped()
-  }
-
   render () {
     const { messages, users, currentUser } = this.props
 
@@ -46,7 +41,6 @@ class App extends Component {
       form = (
         <SendMessageForm
           typing={this.typing}
-          typingStopped={this.typingStopped}
           sendMessage={this.sendMessage} />
       )
     }
