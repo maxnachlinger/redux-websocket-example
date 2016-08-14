@@ -1,2 +1,3 @@
-export const typing = 'typing'
-export const stoppedTyping = 'stoppedTyping'
+export const typingStarted = 'typingStarted'
+export const typingStopped = 'typingStopped'
+export const messageSendRequested = 'messageSendRequested'

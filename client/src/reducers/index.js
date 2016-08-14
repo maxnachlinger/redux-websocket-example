@@ -35,10 +35,10 @@ const currentUser = (state = new Map(), action) => {
 }
 
 const typing = (state = false, action) => {
-  if (action.type === actionTypes.typing) {
+  if (action.type === actionTypes.typingStarted) {
     return true
   }
-  if (action.type === actionTypes.stoppedTyping) {
+  if (action.type === actionTypes.typingStopped) {
     return false
   }
   return state

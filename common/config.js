@@ -7,6 +7,8 @@ const messageTypes = [
   'userLeft',
   'joinRequested',
   'usersRequested',
+  'userStartedTyping',
+  'userStoppedTyping',
   'messageAdded'
 ].reduce((accum, msg) => {
   accum[ msg ] = msg

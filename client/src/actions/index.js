@@ -17,7 +17,8 @@ export function join (name) {
 }
 
 export function sendMessage (message) {
-  return () => {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.messageSendRequested })
     emit(messageTypes.messageAdded, { message })
   }
 }
@@ -26,7 +27,7 @@ export function typing () {
   const typingTimerLength = 1000
 
   return (dispatch, getState) => {
-    dispatch({ type: actionTypes.typing })
+    dispatch({ type: actionTypes.typingStarted })
 
     emit(messageTypes.userStartedTyping)
     const lastTypingTime = Date.now()
@@ -36,7 +37,7 @@ export function typing () {
       const timeDiff = Date.now() - lastTypingTime
 
       if (timeDiff >= typingTimerLength && typing) {
-        dispatch({ type: actionTypes.stoppedTyping })
+        dispatch({ type: actionTypes.typingStopped })
         emit(messageTypes.userStoppedTyping)
       }
     }, typingTimerLength);
