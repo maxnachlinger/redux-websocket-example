@@ -17,7 +17,15 @@ export function join (name) {
 }
 
 export function sendMessage (message) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const typing = getState().get('currentUserIsTyping')
+
+    // if we're sending a message we're probably not also typing :)
+    if (typing) {
+      dispatch({ type: actionTypes.typingStopped })
+      emit(messageTypes.userStoppedTyping)
+    }
+
     dispatch({ type: actionTypes.messageSendRequested })
     emit(messageTypes.messageAdded, { message })
   }
@@ -27,13 +35,18 @@ export function typing () {
   const typingTimerLength = 1000
 
   return (dispatch, getState) => {
-    dispatch({ type: actionTypes.typingStarted })
 
-    emit(messageTypes.userStartedTyping)
+    const typing = getState().get('currentUserIsTyping')
+    // don't spam "typing" events and websocket messages
+    if (!typing) {
+      dispatch({ type: actionTypes.typingStarted })
+      emit(messageTypes.userStartedTyping)
+    }
+
     const lastTypingTime = Date.now()
 
     setTimeout(() => {
-      const typing = getState().get('typing')
+      const typing = getState().get('currentUserIsTyping')
       const timeDiff = Date.now() - lastTypingTime
 
       if (timeDiff >= typingTimerLength && typing) {
