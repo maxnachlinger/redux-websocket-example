@@ -13,7 +13,8 @@ function sendChatMessage (io, user, message) {
   })
 }
 
-function onUsersRequested (event, io, socket, data) {
+function onUsersRequested (io, socket, data) {
+  const event = messageTypes.usersRequested
   logger.info({ event })
   const sockets = io.sockets.sockets || {}
 
@@ -28,34 +29,42 @@ function onUsersRequested (event, io, socket, data) {
 
 function onJoinRequested (io, socket, data) {
   const user = { id: uuid.v4(), name: data.name }
+
   addUser(io, socket, user)
   return sendChatMessage(io, chatBot.user, chatBot.welcomeUser(user))
 }
 
 function addUser (io, socket, user) {
   logger.info({ user }, 'Adding user')
+
   socket.user = user // middleware adds this for subsequent messages
   socket.request.session.user = user
-  socket.request.session.save()
+  socket.request.session.save() // we have to do this explicitly
 
   socket.emit(messageTypes.joinRequested, user)
   return socket.broadcast.emit(messageTypes.userJoined, user)
 }
 
-function onMessageAdded (event, io, socket, data) {
+function onMessageAdded (io, socket, data) {
+  const event = messageTypes.messageAdded
   const user = socket.user
+
   logger.info({ data, event, user })
   return sendChatMessage(io, user, data.message)
 }
 
-function onTypingStarted (event, io, socket, data) {
+function onTypingStarted (io, socket, data) {
+  const event = messageTypes.userStartedTyping
   const user = socket.user
+
   logger.info({ event, user })
   return socket.broadcast.emit(event, { userId: user.id })
 }
 
-function onTypingStopped (event, io, socket, data) {
+function onTypingStopped (io, socket, data) {
+  const event = messageTypes.userStoppedTyping
   const user = socket.user
+
   logger.info({ event, user })
   return socket.broadcast.emit(event, { userId: user.id })
 }
@@ -95,11 +104,11 @@ function addListenersToSocket (io, socket) {
     handleReconnect(io, socket, user)
   }
 
-  socket.on(messageTypes.usersRequested, (data) => onUsersRequested(messageTypes.usersRequested, io, socket, data))
+  socket.on(messageTypes.usersRequested, (data) => onUsersRequested(io, socket, data))
   socket.on(messageTypes.joinRequested, (data) => onJoinRequested(io, socket, data))
-  socket.on(messageTypes.messageAdded, (data) => onMessageAdded(messageTypes.messageAdded, io, socket, data))
-  socket.on(messageTypes.userStartedTyping, (data) => onTypingStarted(messageTypes.userStartedTyping, io, socket, data))
-  socket.on(messageTypes.userStoppedTyping, (data) => onTypingStopped(messageTypes.userStoppedTyping, io, socket, data))
+  socket.on(messageTypes.messageAdded, (data) => onMessageAdded(io, socket, data))
+  socket.on(messageTypes.userStartedTyping, (data) => onTypingStarted(io, socket, data))
+  socket.on(messageTypes.userStoppedTyping, (data) => onTypingStopped(io, socket, data))
   socket.on('disconnect', () => onDisconnect(io, socket))
 }
 
