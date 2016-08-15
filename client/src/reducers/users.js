@@ -8,7 +8,7 @@ const users = (state = new List(), action) => {
 
   const mapping = {
     [messageTypes.usersRequested]: (state, action) => Immutable.fromJS(action.payload),
-    [messageTypes.userLeft]: (state, action) => state.filter((user) => user.get('id') !== action.payload.id),
+    [messageTypes.userLeft]: (state, action) => state.filter((user) => user.get('id') !== action.payload.userId),
     [messageTypes.joinRequested]: (state, action) => addUser(action.payload),
     [messageTypes.userJoined]: (state, action) => addUser(action.payload)
   }

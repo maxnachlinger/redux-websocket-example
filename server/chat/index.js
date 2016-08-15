@@ -1,0 +1,108 @@
+const uuid = require('node-uuid')
+const config = require('../../common/config')
+const logger = require('./../logger')
+const chatBot = require('./chatBot')
+const { messageTypes } = config
+
+function sendChatMessage (io, user, message) {
+  return io.sockets.emit(messageTypes.messageAdded, {
+    id: uuid.v4(),
+    createdAt: Date.now(),
+    message,
+    user
+  })
+}
+
+function onUsersRequested (event, io, socket, data) {
+  logger.info({ event })
+  const sockets = io.sockets.sockets || {}
+
+  // only pull back sockets for joined users
+  const users = Object.keys(sockets || {})
+    .filter((key) => sockets[ key ].user)
+    .map((key) => sockets[ key ].user)
+    .concat([ chatBot.user ]) // add our chatbot
+
+  return socket.emit(event, users)
+}
+
+function onJoinRequested (io, socket, data) {
+  const user = { id: uuid.v4(), name: data.name }
+  addUser(io, socket, user)
+  return sendChatMessage(io, chatBot.user, chatBot.welcomeUser(user))
+}
+
+function addUser (io, socket, user) {
+  logger.info({ user }, 'Adding user')
+  socket.user = user // middleware adds this for subsequent messages
+  socket.request.session.user = user
+  socket.request.session.save()
+
+  socket.emit(messageTypes.joinRequested, user)
+  return socket.broadcast.emit(messageTypes.userJoined, user)
+}
+
+function onMessageAdded (event, io, socket, data) {
+  const user = socket.user
+  logger.info({ data, event, user })
+  return sendChatMessage(io, user, data.message)
+}
+
+function onTypingStarted (event, io, socket, data) {
+  const user = socket.user
+  logger.info({ event, user })
+  return socket.broadcast.emit(event, { userId: user.id })
+}
+
+function onTypingStopped (event, io, socket, data) {
+  const user = socket.user
+  logger.info({ event, user })
+  return socket.broadcast.emit(event, { userId: user.id })
+}
+
+// userId -> timerId, for clearing pending userLeft messages on refresh (which is a quick disconnect / reconnect)
+const disconnectedUsers = {}
+
+function onDisconnect (io, socket) {
+  const user = socket.user
+  if (!user) {
+    return
+  }
+
+  // this disconnect might be a refresh, give it a moment to make sure the user isn't coming back
+  disconnectedUsers[ user.id ] = setTimeout(() => {
+    delete disconnectedUsers[ user.id ]
+    logger.info({ event: messageTypes.userLeft, user })
+    io.sockets.emit(messageTypes.userLeft, { userId: user.id })
+  }, 2000)
+}
+
+function handleReconnect (io, socket, user) {
+  const timeoutId = disconnectedUsers[ user.id ]
+
+  if (timeoutId) {
+    clearTimeout(timeoutId)
+    logger.info({ user }, 'User refreshed')
+    return socket.emit(messageTypes.joinRequested, user)
+  }
+
+  addUser(io, socket, user)
+}
+
+function addListenersToSocket (io, socket) {
+  const user = socket.user
+  if (user) {
+    handleReconnect(io, socket, user)
+  }
+
+  socket.on(messageTypes.usersRequested, (data) => onUsersRequested(messageTypes.usersRequested, io, socket, data))
+  socket.on(messageTypes.joinRequested, (data) => onJoinRequested(io, socket, data))
+  socket.on(messageTypes.messageAdded, (data) => onMessageAdded(messageTypes.messageAdded, io, socket, data))
+  socket.on(messageTypes.userStartedTyping, (data) => onTypingStarted(messageTypes.userStartedTyping, io, socket, data))
+  socket.on(messageTypes.userStoppedTyping, (data) => onTypingStopped(messageTypes.userStoppedTyping, io, socket, data))
+  socket.on('disconnect', () => onDisconnect(io, socket))
+}
+
+module.exports.init = (io) => {
+  io.on('connection', (socket) => addListenersToSocket(io, socket))
+}

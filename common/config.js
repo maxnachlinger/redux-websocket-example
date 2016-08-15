@@ -1,5 +1,5 @@
 const port = 3000
-const host = '127.0.0.1'
+const host = 'silly-chat.localtest.me'
 
 // makes an object of the form {userJoined: 'userJoined'}
 const messageTypes = [
@@ -9,7 +9,8 @@ const messageTypes = [
   'usersRequested',
   'userStartedTyping',
   'userStoppedTyping',
-  'messageAdded'
+  'messageAdded',
+  'userRefreshed'
 ].reduce((accum, msg) => {
   accum[ msg ] = msg
   return accum

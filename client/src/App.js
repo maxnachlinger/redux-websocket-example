@@ -50,7 +50,8 @@ class App extends Component {
         <MessageList messages={messages} />
         <UserList
           userIdsTyping={userIdsTyping}
-          users={users} />
+          users={users}
+        />
         {form}
       </div>
     )

@@ -4,14 +4,14 @@ export default (props) => {
   const { userName, userIsTyping } = props
 
   // TODO - a nicer typing indicator is needed here :)
-  let typing = null
+  let action = null
   if (userIsTyping) {
-    typing = ' ...'
+    action = ' (typing)'
   }
 
   return (
     <li>
-      <span>{userName}{typing}</span>
+      <span>{userName}{action}</span>
     </li>
   )
 }

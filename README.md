@@ -25,9 +25,10 @@ npm start
 cd ../server
 npm start
 ```
-The app runs at [http://localhost:3000](http://localhost:3000)
+The app runs at [http://silly-chat.localtest.me:3000](http://silly-chat.localtest.me:3000)
 
 ### TODO
+- Add sessions so users can refresh their browser without having to reconnect
 - Show idle users with idle times ("idle for N minutes" etc)
 - Add CSS - dear God the UI is awful :)
 - Allow users to edit their recent messages, but show an edit indicator by edited message to everyone else
