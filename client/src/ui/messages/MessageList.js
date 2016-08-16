@@ -7,7 +7,8 @@ const styles = {
     margin: '0 0 5px 0',
     fontSize: '1.0em'
   },
-  messageList: {
+  list: {
+    padding: '5px',
     boxSizing: 'border-box',
     marginRight: '13.0em',
     minWidth: '175px'
@@ -25,7 +26,7 @@ export default Radium((props) => {
   }
 
   return (
-    <div style={styles.messageList}>
+    <div style={styles.list}>
       <h2 style={styles.title}>Messages</h2>
       {messageUi}
     </div>

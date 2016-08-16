@@ -7,7 +7,8 @@ const styles = {
     margin: '0 0 5px 0',
     fontSize: '1.0em'
   },
-  userList: {
+  list: {
+    padding: '5px',
     boxSizing: 'border-box',
     position: 'absolute',
     top: 0,
@@ -24,7 +25,7 @@ export default Radium((props) => {
     usersUi = users.map(user => {
       const userId = user.get('id')
 
-      return (< User
+      return (<User
           key={userId}
           userName={user.get('name')}
           userIsTyping={userIdsTyping.has(userId)}
@@ -34,7 +35,7 @@ export default Radium((props) => {
   }
 
   return (
-    <div style={styles.userList}>
+    <div style={styles.list}>
       <h2 style={styles.title}>Users</h2>
       {usersUi}
     </div>

@@ -17,8 +17,6 @@ export default Radium((props) => {
   }
 
   return (
-    <div>
-      <span style={styles.userName}>{userName}</span>{action}
-    </div>
+    <div style={styles.userName}>{userName} {action}</div>
   )
 })

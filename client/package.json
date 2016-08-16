@@ -11,7 +11,6 @@
     "chunk-manifest-webpack-plugin": "^0.1.0",
     "favicons-webpack-plugin": "0.0.6",
     "html-webpack-plugin": "^2.22.0",
-    "radium": "^0.18.1",
     "snazzy": "^4.0.0",
     "standard": "^7.1.2",
     "webpack": "^1.13.1"
@@ -20,6 +19,7 @@
     "babel-polyfill": "^6.13.0",
     "dateformat": "^1.0.12",
     "immutable": "^3.8.1",
+    "radium": "^0.18.1",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-redux": "^4.4.5",
