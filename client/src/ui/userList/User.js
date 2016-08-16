@@ -1,6 +1,13 @@
 import React from 'react'
+import Radium from 'radium'
 
-export default (props) => {
+const styles = {
+  userName: {
+    fontSize: '0.7em'
+  }
+}
+
+export default Radium((props) => {
   const { userName, userIsTyping } = props
 
   // TODO - a nicer typing indicator is needed here :)
@@ -10,8 +17,8 @@ export default (props) => {
   }
 
   return (
-    <li>
-      <span>{userName}{action}</span>
-    </li>
+    <div>
+      <span style={styles.userName}>{userName}</span>{action}
+    </div>
   )
-}
+})

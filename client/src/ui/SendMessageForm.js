@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
+import Radium from 'radium'
 
-export default class SendMessageForm extends Component {
+const styles = {
+  form: {
+    margin: 0
+  }
+}
+
+class SendMessageForm extends Component {
   constructor (props) {
     super(props)
 
@@ -43,7 +50,7 @@ export default class SendMessageForm extends Component {
     }
 
     return (
-      <div className='send-message-form'>
+      <div style={styles.form}>
         <textarea ref='messageInput' placeholder='Say something nice' maxLength='500'
           onChange={this.onTextareaChange} onKeyDown={this.onTextareaKeyDown}></textarea>
         <button onClick={this.onSendClick} disabled={submitDisabled}>Send</button>
@@ -51,3 +58,5 @@ export default class SendMessageForm extends Component {
     )
   }
 }
+
+export default Radium(SendMessageForm)

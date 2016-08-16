@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import Radium from 'radium'
 import * as actions from './actions'
 import MessageList from './ui/messages/MessageList'
 import UserList from './ui/userList/UserList'
 import JoinForm from './ui/JoinForm'
 import SendMessageForm from './ui/SendMessageForm'
+
+const styles = {
+  chatBox: {
+    position: 'relative'
+  }
+};
 
 class App extends Component {
   constructor (props) {
@@ -35,19 +42,19 @@ class App extends Component {
   render () {
     const { messages, users, currentUser, userIdsTyping } = this.props
 
-    let form = (<JoinForm join={this.join} />)
+    let form = (<JoinForm join={this.join}/>)
 
     if (currentUser.size > 0) {
       form = (
         <SendMessageForm
           typing={this.typing}
-          sendMessage={this.sendMessage} />
+          sendMessage={this.sendMessage}/>
       )
     }
 
     return (
-      <div className='chat-box'>
-        <MessageList messages={messages} />
+      <div style={styles.chatBox}>
+        <MessageList messages={messages}/>
         <UserList
           userIdsTyping={userIdsTyping}
           users={users}
@@ -74,7 +81,8 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(
+export default Radium(connect(
   mapStateToProps,
   mapDispatchToProps
-)(App)
+)(App))
+

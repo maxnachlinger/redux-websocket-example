@@ -1,7 +1,22 @@
 import React from 'react'
+import Radium from 'radium'
 import User from './User'
 
-export default (props) => {
+const styles = {
+  title: {
+    margin: '0 0 5px 0',
+    fontSize: '1.0em'
+  },
+  userList: {
+    boxSizing: 'border-box',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    width: '13.0em'
+  }
+}
+
+export default Radium((props) => {
   const { users, userIdsTyping } = props
   let usersUi = null
 
@@ -19,9 +34,9 @@ export default (props) => {
   }
 
   return (
-    <div className='user-list'>
-      <h2>Users</h2>
-      <ul>{usersUi}</ul>
+    <div style={styles.userList}>
+      <h2 style={styles.title}>Users</h2>
+      {usersUi}
     </div>
   )
-}
+})

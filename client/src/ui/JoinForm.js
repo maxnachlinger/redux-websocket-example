@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
+import Radium from 'radium'
 
-export default class JoinForm extends Component {
+const styles = {
+  form: {
+    margin: 0
+  }
+}
+
+class JoinForm extends Component {
   constructor (props) {
     super(props)
     this.onJoinClick = this.onJoinClick.bind(this)
@@ -34,7 +41,7 @@ export default class JoinForm extends Component {
     }
 
     return (
-      <div className='join-form'>
+      <div style={styles.form}>
         <input type='text' maxLength='30' placeholder='Your name' ref='nameInput' onKeyDown={this.checkName}
           onChange={this.checkName} />
         <button onClick={this.onJoinClick} disabled={submitDisabled}>Join</button>
@@ -42,3 +49,5 @@ export default class JoinForm extends Component {
     )
   }
 }
+
+export default Radium(JoinForm)

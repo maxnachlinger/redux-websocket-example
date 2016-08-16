@@ -1,15 +1,29 @@
 import React from 'react'
 import dateformat from 'dateformat'
+import Radium from 'radium'
 
-export default (props) => {
+const styles = {
+  row: {
+    fontSize: '0.7em'
+  },
+  userName: {
+    marginLeft: '5px'
+  },
+  text: {
+    marginLeft: '5px',
+    wordWrap: 'break-word'
+  }
+}
+
+export default Radium((props) => {
   const { message } = props
-  const name = message.getIn('user.name')
+  const name = message.get('user').get('name')
 
   return (
-    <li>
+    <div style={styles.row}>
       <span>{dateformat(message.get('createdAt'), 'HH:MM:ss')}</span>
-      <span>{name}</span>
-      <span>{message.get('message')}</span>
-    </li>
+      <span style={styles.userName}>{name}</span>
+      <span style={styles.text}>{message.get('message')}</span>
+    </div>
   )
-}
+})

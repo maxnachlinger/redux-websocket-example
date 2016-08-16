@@ -9,14 +9,11 @@
     "babel-preset-stage-0": "^6.5.0",
     "bell-on-bundler-error-plugin": "^1.0.8",
     "chunk-manifest-webpack-plugin": "^0.1.0",
-    "css-loader": "^0.23.1",
     "favicons-webpack-plugin": "0.0.6",
     "html-webpack-plugin": "^2.22.0",
-    "node-sass": "^3.8.0",
-    "sass-loader": "^4.0.0",
+    "radium": "^0.18.1",
     "snazzy": "^4.0.0",
     "standard": "^7.1.2",
-    "style-loader": "^0.13.1",
     "webpack": "^1.13.1"
   },
   "dependencies": {
