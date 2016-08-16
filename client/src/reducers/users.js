@@ -4,7 +4,7 @@ const { messageTypes } = config
 
 const users = (state = new List(), action) => {
   const addUser = (user) => state.push(Immutable.fromJS(user))
-    .sort((user0, user1) => user0.get('name').localeCompare(user1.get('name')));
+    .sort((user0, user1) => user0.get('name').localeCompare(user1.get('name')))
 
   const mapping = {
     [messageTypes.usersRequested]: (state, action) => Immutable.fromJS(action.payload),

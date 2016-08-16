@@ -70,7 +70,7 @@ module.exports = {
       // transforms scss files to css
       {
         test: /\.scss$/,
-        loaders: [ 'style', "css?sourceMap", "sass?sourceMap" ]
+        loaders: [ 'style', 'css?sourceMap', 'sass?sourceMap' ]
       }
     ]
   },

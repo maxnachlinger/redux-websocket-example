@@ -12,7 +12,7 @@ const styles = {
   chatBox: {
     position: 'relative'
   }
-};
+}
 
 class App extends Component {
   constructor (props) {
@@ -42,19 +42,24 @@ class App extends Component {
   render () {
     const { messages, users, currentUser, userIdsTyping } = this.props
 
-    let form = (<JoinForm join={this.join}/>)
+    let form = (<JoinForm
+      join={this.join}
+    />)
 
     if (currentUser.size > 0) {
       form = (
         <SendMessageForm
           typing={this.typing}
-          sendMessage={this.sendMessage}/>
+          sendMessage={this.sendMessage}
+        />
       )
     }
 
     return (
       <div style={styles.chatBox}>
-        <MessageList messages={messages}/>
+        <MessageList
+          messages={messages}
+        />
         <UserList
           userIdsTyping={userIdsTyping}
           users={users}

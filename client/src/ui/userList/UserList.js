@@ -25,7 +25,8 @@ export default Radium((props) => {
     usersUi = users.map(user => {
       const userId = user.get('id')
 
-      return (<User
+      return (
+        <User
           key={userId}
           userName={user.get('name')}
           userIsTyping={userIdsTyping.has(userId)}

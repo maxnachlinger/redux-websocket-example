@@ -35,7 +35,6 @@ export function typing () {
   const typingTimerLength = 400
 
   return (dispatch, getState) => {
-
     const typing = getState().get('currentUserIsTyping')
     // don't spam "typing" events and websocket messages
     if (!typing) {

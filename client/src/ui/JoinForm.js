@@ -43,7 +43,8 @@ class JoinForm extends Component {
     return (
       <div style={styles.form}>
         <input type='text' maxLength='30' placeholder='Your name' ref='nameInput' onKeyDown={this.checkName}
-          onChange={this.checkName} />
+          onChange={this.checkName}
+        />
         <button onClick={this.onJoinClick} disabled={submitDisabled}>Join</button>
       </div>
     )

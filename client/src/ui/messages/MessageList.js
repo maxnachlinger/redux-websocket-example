@@ -21,7 +21,10 @@ export default Radium((props) => {
 
   if (messages.size > 0) {
     messageUi = props.messages.map(message => (
-      <Message key={message.get('id')} message={message}/>
+      <Message
+        key={message.get('id')}
+        message={message}
+      />
     ))
   }
 

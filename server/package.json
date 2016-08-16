@@ -10,7 +10,7 @@
     "helmet": "^2.1.2",
     "level": "^1.4.0",
     "level-session-store": "^2.0.1",
-    "lodash": "^4.13.1",
+    "lodash": "^4.15.0",
     "node-uuid": "^1.4.7",
     "socket.io": "^1.4.8"
   },
