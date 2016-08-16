@@ -43,7 +43,7 @@ export default class SendMessageForm extends Component {
     }
 
     return (
-      <div>
+      <div className='send-message-form'>
         <textarea ref='messageInput' placeholder='Say something nice' maxLength='500'
           onChange={this.onTextareaChange} onKeyDown={this.onTextareaKeyDown}></textarea>
         <button onClick={this.onSendClick} disabled={submitDisabled}>Send</button>

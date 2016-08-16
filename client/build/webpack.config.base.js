@@ -66,6 +66,11 @@ module.exports = {
         query: {
           presets: [ 'react', 'es2015', 'stage-0' ]
         }
+      },
+      // transforms scss files to css
+      {
+        test: /\.scss$/,
+        loaders: [ 'style', "css?sourceMap", "sass?sourceMap" ]
       }
     ]
   },

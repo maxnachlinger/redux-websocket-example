@@ -46,7 +46,7 @@ class App extends Component {
     }
 
     return (
-      <div>
+      <div className='chat-box'>
         <MessageList messages={messages} />
         <UserList
           userIdsTyping={userIdsTyping}
