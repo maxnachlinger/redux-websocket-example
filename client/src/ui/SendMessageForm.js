@@ -3,7 +3,13 @@ import Radium from 'radium'
 
 const styles = {
   form: {
-    margin: 0
+    margin: '0 0 0 0',
+    padding: '5px',
+    width: '100%'
+  },
+  textarea: {
+    height: 'auto',
+    width: 'auto'
   }
 }
 
@@ -51,8 +57,8 @@ class SendMessageForm extends Component {
 
     return (
       <div style={styles.form}>
-        <textarea ref='messageInput' placeholder='Say something nice' maxLength='500'
-          onChange={this.onTextareaChange} onKeyDown={this.onTextareaKeyDown}></textarea>
+        <textarea style={styles.textarea} ref='messageInput' placeholder='Say something nice' maxLength='500'
+          rows='2' cols='40' onChange={this.onTextareaChange} onKeyDown={this.onTextareaKeyDown}></textarea>
         <button onClick={this.onSendClick} disabled={submitDisabled}>Send</button>
       </div>
     )

@@ -5,15 +5,16 @@ import User from './User'
 const styles = {
   title: {
     margin: '0 0 5px 0',
-    fontSize: '1.0em'
+    fontSize: '0.8em'
   },
   list: {
+    margin: '4px',
     padding: '5px',
-    boxSizing: 'border-box',
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    width: '13.0em'
+    border: '1px solid #8888bb',
+    flex: '0 1 auto',
+    order: 1,
+    minWidth: '210px',
+    maxWidth: '20%'
   }
 }
 

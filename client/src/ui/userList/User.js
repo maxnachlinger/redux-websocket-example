@@ -3,7 +3,8 @@ import Radium from 'radium'
 
 const styles = {
   userName: {
-    fontSize: '0.7em'
+    fontSize: '0.5em',
+    wordWrap: 'break-word'
   }
 }
 

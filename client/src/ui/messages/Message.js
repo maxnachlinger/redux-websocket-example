@@ -4,7 +4,7 @@ import Radium from 'radium'
 
 const styles = {
   row: {
-    fontSize: '0.7em'
+    fontSize: '0.5em'
   },
   userName: {
     marginLeft: '5px'

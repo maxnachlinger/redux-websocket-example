@@ -9,8 +9,11 @@ import JoinForm from './ui/JoinForm'
 import SendMessageForm from './ui/SendMessageForm'
 
 const styles = {
-  chatBox: {
-    position: 'relative'
+  row: {
+    margin: '0px',
+    padding: '0px',
+    display: 'flex',
+    flexFlow: 'row nowrap'
   }
 }
 
@@ -56,15 +59,19 @@ class App extends Component {
     }
 
     return (
-      <div style={styles.chatBox}>
-        <MessageList
-          messages={messages}
-        />
-        <UserList
-          userIdsTyping={userIdsTyping}
-          users={users}
-        />
-        {form}
+      <div>
+        <div style={styles.row}>
+          <MessageList
+            messages={messages}
+          />
+          <UserList
+            userIdsTyping={userIdsTyping}
+            users={users}
+          />
+        </div>
+        <div style={styles.row}>
+          {form}
+        </div>
       </div>
     )
   }

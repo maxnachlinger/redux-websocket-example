@@ -5,13 +5,15 @@ import Message from './Message'
 const styles = {
   title: {
     margin: '0 0 5px 0',
-    fontSize: '1.0em'
+    fontSize: '0.8em'
   },
   list: {
+    margin: '4px',
     padding: '5px',
-    boxSizing: 'border-box',
-    marginRight: '13.0em',
-    minWidth: '175px'
+    border: '1px solid #8888bb',
+    flex: '1 1 auto',
+    order: 1,
+    maxWidth: '80%'
   }
 }
 
