@@ -63,6 +63,7 @@ module.exports = {
         ],
         loader: 'babel',
         query: {
+          // fix per https://github.com/babel/babel-loader/issues/166#issuecomment-160866946
           presets: [
             require.resolve('babel-preset-es2015'),
             require.resolve('babel-preset-react'),

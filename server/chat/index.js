@@ -83,6 +83,7 @@ function onDisconnect (io, socket) {
     delete disconnectedUsers[ user.id ]
     logger.info({ event: messageTypes.userLeft, user })
     io.sockets.emit(messageTypes.userLeft, { userId: user.id })
+    sendChatMessage(io, chatBot.user, 'left')
   }, 2000)
 }
 

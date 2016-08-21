@@ -62,11 +62,10 @@ class App extends Component {
       <div>
         <div style={styles.row}>
           <MessageList
-            messages={messages}
+            {...{ messages }}
           />
           <UserList
-            userIdsTyping={userIdsTyping}
-            users={users}
+            {...{ userIdsTyping, users }}
           />
         </div>
         <div style={styles.row}>
