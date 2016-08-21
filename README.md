@@ -31,4 +31,3 @@ The app runs at [http://silly-chat.localtest.me:3000](http://silly-chat.localtes
 - Show idle users with idle times ("idle for N minutes" etc)
 - Add CSS - dear God the UI is awful :)
 - Allow users to edit their recent messages, but show an edit indicator by edited message to everyone else
-- Make a prod webpack build. This is a rather low priority as no one should ever use this in production :)

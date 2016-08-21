@@ -15,6 +15,5 @@ const plugins = [
 
 module.exports = Object.assign({}, configBase, {
   devtool: 'source-map', // source-maps let us do cool things like add breakpoints in our code
-  debug: true,
-  plugins
-})
+  debug: true
+}, { plugins })
