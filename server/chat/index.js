@@ -1,7 +1,6 @@
 const uuid = require('node-uuid')
 const config = require('../../common/config')
 const logger = require('./../logger')
-const chatBot = require('./chatBot')
 const { messageTypes } = config
 
 function sendChatMessage (io, user, message) {
@@ -10,6 +9,14 @@ function sendChatMessage (io, user, message) {
     createdAt: Date.now(),
     message,
     user
+  })
+}
+
+function sendSystemMessage (io, message) {
+  return io.sockets.emit(messageTypes.messageAdded, {
+    id: uuid.v4(),
+    createdAt: Date.now(),
+    message
   })
 }
 
@@ -22,7 +29,6 @@ function onUsersRequested (io, socket, data) {
   const users = Object.keys(sockets || {})
     .filter((key) => sockets[ key ].user)
     .map((key) => sockets[ key ].user)
-    .concat([ chatBot.user ]) // add our chatbot
 
   return socket.emit(event, users)
 }
@@ -31,7 +37,7 @@ function onJoinRequested (io, socket, data) {
   const user = { id: uuid.v4(), name: data.name }
 
   addUser(io, socket, user)
-  return sendChatMessage(io, chatBot.user, chatBot.welcomeUser(user))
+  return sendSystemMessage(io, `${user.name} joined`)
 }
 
 function addUser (io, socket, user) {
@@ -83,7 +89,7 @@ function onDisconnect (io, socket) {
     delete disconnectedUsers[ user.id ]
     logger.info({ event: messageTypes.userLeft, user })
     io.sockets.emit(messageTypes.userLeft, { userId: user.id })
-    sendChatMessage(io, chatBot.user, 'left')
+    return sendSystemMessage(io, `${user.name} left`)
   }, 2000)
 }
 
