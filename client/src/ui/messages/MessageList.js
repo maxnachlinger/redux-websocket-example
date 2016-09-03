@@ -22,14 +22,21 @@ export default Radium((props) => {
   let messageUi = null
 
   if (messages.size > 0) {
-    messageUi = props.messages.map(message => (
-      <Message
-        key={message.get('id')}
-        name={message.get('user').get('name')}
-        createdAt={message.get('createdAt')}
-        message={message.get('message')}
-      />
-    ))
+    messageUi = props.messages.map(message => {
+      let name = null
+      if (message.get('user')) {
+        name = message.get('user').get('name')
+      }
+
+      return (
+        <Message
+          key={message.get('id')}
+          name={name}
+          createdAt={message.get('createdAt')}
+          message={message.get('message')}
+        />
+      )
+    })
   }
 
   return (
