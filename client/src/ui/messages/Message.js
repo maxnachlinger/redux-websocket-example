@@ -6,7 +6,7 @@ const styles = {
   row: {
     fontSize: '0.5em'
   },
-  userName: {
+  name: {
     marginLeft: '5px'
   },
   text: {
@@ -16,21 +16,20 @@ const styles = {
 }
 
 export default Radium((props) => {
-  const { message } = props
-  const user = message.get('user')
+  const { name, createdAt, message } = props
 
   let nameUi = null
-  if (user) {
+  if (name) {
     nameUi = (
-      <span style={styles.userName}>{user.get('name')}</span>
+      <span style={styles.name}>{name}</span>
     )
   }
 
   return (
     <div style={styles.row}>
-      <span>{dateformat(message.get('createdAt'), 'HH:MM:ss')}</span>
+      <span>{dateformat(createdAt, 'HH:MM:ss')}</span>
       {nameUi}
-      <span style={styles.text}>{message.get('message')}</span>
+      <span style={styles.text}>{message}</span>
     </div>
   )
 })

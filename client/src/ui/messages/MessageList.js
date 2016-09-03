@@ -25,7 +25,9 @@ export default Radium((props) => {
     messageUi = props.messages.map(message => (
       <Message
         key={message.get('id')}
-        message={message}
+        name={message.get('user').get('name')}
+        createdAt={message.get('createdAt')}
+        message={message.get('message')}
       />
     ))
   }
