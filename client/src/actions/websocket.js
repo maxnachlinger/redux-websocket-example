@@ -1,6 +1,5 @@
 import io from 'socket.io-client'
-import * as config from '../../../common/config'
-const { messageTypes, uri } = config
+import {messageTypes, uri} from '../../../common/config'
 const socket = io(uri)
 
 const init = (store) => {

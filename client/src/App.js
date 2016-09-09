@@ -42,21 +42,28 @@ class App extends Component {
     this.props.actions.typing()
   }
 
-  render () {
-    const { messages, users, currentUser, userIdsTyping } = this.props
+  renderForm () {
+    const { currentUser } = this.props
 
-    let form = (<JoinForm
-      join={this.join}
-    />)
-
-    if (currentUser.size > 0) {
-      form = (
-        <SendMessageForm
-          typing={this.typing}
-          sendMessage={this.sendMessage}
+    if (currentUser.size === 0) {
+      return (
+        <JoinForm
+          join={this.join}
         />
       )
     }
+
+    return (
+      <SendMessageForm
+        typing={this.typing}
+        sendMessage={this.sendMessage}
+      />
+    )
+  }
+
+  render () {
+    const { messages, users, userIdsTyping } = this.props
+    const form = this.renderForm()
 
     return (
       <div>
