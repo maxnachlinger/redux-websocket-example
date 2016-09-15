@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Radium from 'radium'
+import bind from 'lodash.bind'
 
 const styles = {
   form: {
@@ -17,9 +18,9 @@ class SendMessageForm extends Component {
   constructor (props) {
     super(props)
 
-    this.onSendClick = this.onSendClick.bind(this)
-    this.onTextareaKeyDown = this.onTextareaKeyDown.bind(this)
-    this.onTextareaChange = this.onTextareaChange.bind(this)
+    this.onSendClick = bind(this.onSendClick, this)
+    this.onTextareaKeyDown = bind(this.onTextareaKeyDown, this)
+    this.onTextareaChange = bind(this.onTextareaChange, this)
 
     this.state = { valid: false, name: null }
   }

@@ -10,7 +10,7 @@ import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import App from './App'
 import rootReducer from './reducers'
-import { init } from './actions/websocket'
+import { init as websocketInit } from './actions/websocket'
 
 const initialState = new Map()
   .set('messages', new List())
@@ -29,7 +29,7 @@ function startUp () {
   const setup = applyMiddleware(...middleware)(createStore)
 
   const store = setup(rootReducer, initialState)
-  init(store)
+  websocketInit(store) // setup websocket listeners etc
 
   return store
 }

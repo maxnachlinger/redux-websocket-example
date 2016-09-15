@@ -7,6 +7,7 @@ import MessageList from './ui/messages/MessageList'
 import UserList from './ui/userList/UserList'
 import JoinForm from './ui/JoinForm'
 import SendMessageForm from './ui/SendMessageForm'
+import bind from 'lodash.bind'
 
 const styles = {
   row: {
@@ -21,9 +22,9 @@ class App extends Component {
   constructor (props) {
     super(props)
 
-    this.join = this.join.bind(this)
-    this.sendMessage = this.sendMessage.bind(this)
-    this.typing = this.typing.bind(this)
+    this.join = bind(this.join, this)
+    this.sendMessage = bind(this.sendMessage, this)
+    this.typing = bind(this.typing, this)
   }
 
   componentWillMount () {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Radium from 'radium'
+import bind from 'lodash.bind'
 
 const styles = {
   form: {
@@ -11,8 +12,8 @@ const styles = {
 class JoinForm extends Component {
   constructor (props) {
     super(props)
-    this.onJoinClick = this.onJoinClick.bind(this)
-    this.checkName = this.checkName.bind(this)
+    this.onJoinClick = bind(this.onJoinClick, this)
+    this.checkName = bind(this.checkName, this)
     this.state = { valid: false, name: null }
   }
 
