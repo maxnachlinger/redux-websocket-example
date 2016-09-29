@@ -59,7 +59,7 @@ class SendMessageForm extends Component {
     return (
       <div style={styles.form}>
         <textarea style={styles.textarea} ref='messageInput' placeholder='Say something nice' maxLength='500'
-          rows='2' cols='40' onChange={this.onTextareaChange} onKeyDown={this.onTextareaKeyDown}></textarea>
+          rows='2' cols='40' onChange={this.onTextareaChange} onKeyDown={this.onTextareaKeyDown} />
         <button onClick={this.onSendClick} disabled={submitDisabled}>Send</button>
       </div>
     )
