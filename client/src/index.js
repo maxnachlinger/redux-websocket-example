@@ -1,5 +1,3 @@
-/* global __DEV__ */
-// the above tells the standard checker to ignore the fact that __DEV__ is not defined
 import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -10,7 +8,7 @@ import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import App from './App'
 import rootReducer from './reducers'
-import { init as websocketInit } from './actions/websocket'
+import { init as websocketInit, emit } from './actions/websocket'
 
 const initialState = new Map()
   .set('messages', new List())
@@ -20,7 +18,7 @@ const initialState = new Map()
   .set('currentUserIsTyping', false)
 
 function startUp () {
-  const middleware = [ thunkMiddleware ]
+  const middleware = [ thunkMiddleware.withExtraArgument({ emit }) ]
   // use the logger in development mode - this is set in webpack.config.dev.js
   if (__DEV__) {
     middleware.push(createLogger())

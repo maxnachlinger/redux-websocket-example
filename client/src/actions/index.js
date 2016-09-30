@@ -1,23 +1,22 @@
 import * as config from '../../../common/config'
 import * as actionTypes from '../actions/actionTypes'
-import { emit } from './websocket'
 const { messageTypes } = config
 
 export function startUp () {
   // this is the redux-middleware package in action, dispatch and getState params are passed in
-  return (/* dispatch, getState */) => {
+  return (dispatch, getState, {emit}) => {
     emit(messageTypes.usersRequested)
   }
 }
 
 export function join (name) {
-  return () => {
+  return (dispatch, getState, {emit}) => {
     emit(messageTypes.joinRequested, { name })
   }
 }
 
 export function sendMessage (message) {
-  return (dispatch, getState) => {
+  return (dispatch, getState, {emit}) => {
     const typing = getState().get('currentUserIsTyping')
 
     // if we're sending a message we're probably not also typing :)
@@ -34,7 +33,7 @@ export function sendMessage (message) {
 export function typing () {
   const typingTimerLength = 400
 
-  return (dispatch, getState) => {
+  return (dispatch, getState, {emit}) => {
     const typing = getState().get('currentUserIsTyping')
     // don't spam "typing" events and websocket messages
     if (!typing) {
