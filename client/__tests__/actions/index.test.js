@@ -1,9 +1,8 @@
 import Immutable from 'immutable'
 import expect from 'expect'
-import * as config from '../../../common/config'
+import {messageTypes} from '../../../common/config'
 import * as actions from '../../src/actions'
-import * as actionTypes from '../../src/actions/actionTypes'
-const { messageTypes } = config
+import {typingStarted} from '../../src/actions/actionTypes'
 
 const getStateStub = (state) => () => Immutable.fromJS(state || {})
 
@@ -43,13 +42,12 @@ describe('actions', () => {
     expect(emittedMessages).toInclude({ type: messageTypes.userStoppedTyping, payload: undefined })
   })
 
-  it(`should dispatch a ${actionTypes.typingStarted} message when typing() is called and the user was not already typing`, () => {
+  it(`should dispatch a ${typingStarted} message when typing() is called and the user was not already typing`, () => {
     const emit = (type, payload) => {}
     const dispatch = (event) => {
-      expect(event.type).toEqual(actionTypes.typingStarted)
+      expect(event.type).toEqual(typingStarted)
     }
 
     actions.typing()(dispatch, getStateStub({ currentUserIsTyping: false }), { emit })
   })
-
 })

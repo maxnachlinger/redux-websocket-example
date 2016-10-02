@@ -1,9 +1,8 @@
 import Immutable from 'immutable'
 import expect from 'expect'
-import * as config from '../../../common/config'
-import * as actionTypes from '../../src/actions/actionTypes'
+import {messageTypes} from '../../../common/config'
+import {typingStarted, typingStopped} from '../../src/actions/actionTypes'
 import { currentUser, currentUserIsTyping } from '../../src/reducers/currentUser'
-const { messageTypes } = config
 
 describe('reducers currentUser', () => {
   it(`should set currentUser to the payload of the ${messageTypes.joinRequested} message`, () => {
@@ -15,13 +14,13 @@ describe('reducers currentUser', () => {
     }).toEqual(user)
   })
 
-  it(`should set currentUserIsTyping to true on receiving a ${actionTypes.typingStarted} message`, () => {
-    const nextState = currentUserIsTyping(false, { type: actionTypes.typingStarted })
+  it(`should set currentUserIsTyping to true on receiving a ${typingStarted} message`, () => {
+    const nextState = currentUserIsTyping(false, { type: typingStarted })
     expect(nextState).toBe(true)
   })
 
-  it(`should set currentUserIsTyping to true on receiving a ${actionTypes.typingStopped} message`, () => {
-    const nextState = currentUserIsTyping(true, { type: actionTypes.typingStopped })
+  it(`should set currentUserIsTyping to true on receiving a ${typingStopped} message`, () => {
+    const nextState = currentUserIsTyping(true, { type: typingStopped })
     expect(nextState).toBe(false)
   })
 })

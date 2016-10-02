@@ -36,7 +36,7 @@
     "webpack": "^1.13.2"
   },
   "scripts": {
-    "prebuild": "standard --verbose | snazzy",
+    "lint": "standard --verbose | snazzy",
     "test": "jest",
     "start": "rimraf ../server/public/* && webpack --progress --colors --watch --display-error-details --config ./build/webpack.config.dev.js",
     "build": "rimraf ../server/public/* && webpack --progress --colors --display-error-details --bail --config ./build/webpack.config.prod.js"
