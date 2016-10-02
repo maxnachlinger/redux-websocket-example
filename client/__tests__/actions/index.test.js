@@ -1,8 +1,8 @@
 import Immutable from 'immutable'
 import expect from 'expect'
-import * as config from '../../common/config'
-import * as actions from '../src/actions'
-import * as actionTypes from '../src/actions/actionTypes'
+import * as config from '../../../common/config'
+import * as actions from '../../src/actions'
+import * as actionTypes from '../../src/actions/actionTypes'
 const { messageTypes } = config
 
 const getStateStub = (state) => () => Immutable.fromJS(state || {})
