@@ -1,6 +1,6 @@
 import { Map, List } from 'immutable'
 import expect from 'expect'
-import {messageTypes} from '../../../common/config'
+import { messageTypes } from '../../../common/config'
 import { userIdsTyping, users } from '../../src/reducers/users'
 
 describe('reducers: userIdsTyping', () => {

@@ -1,6 +1,6 @@
-import {List} from 'immutable'
+import { List } from 'immutable'
 import expect from 'expect'
-import {messageTypes} from '../../../common/config'
+import { messageTypes } from '../../../common/config'
 import { messages } from '../../src/reducers/messages'
 
 describe('reducers: messages', () => {

@@ -1,7 +1,7 @@
 import Immutable from 'immutable'
 import expect from 'expect'
-import {messageTypes} from '../../../common/config'
-import {typingStarted, typingStopped} from '../../src/actions/actionTypes'
+import { messageTypes } from '../../../common/config'
+import { typingStarted, typingStopped } from '../../src/actions/actionTypes'
 import { currentUser, currentUserIsTyping } from '../../src/reducers/currentUser'
 
 describe('reducers: currentUser', () => {
