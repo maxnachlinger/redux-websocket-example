@@ -1,6 +1,12 @@
 # react/redux websocket example
 
-[![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+[![travis][travis-image]][travis-url]
+[![standard][standard-image]][standard-url]
+
+[travis-image]: https://travis-ci.org/maxnachlinger/redux-websocket-example.svg?branch=master
+[travis-url]: https://travis-ci.org/maxnachlinger/redux-websocket-example
+[standard-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg
+[standard-url]: http://standardjs.com/
 
 ### Installation:
 Note: This requires a recent version of NodeJS to work.
