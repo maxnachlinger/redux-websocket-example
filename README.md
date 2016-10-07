@@ -33,6 +33,12 @@ npm start
 ```
 The app runs at [http://silly-chat.localtest.me:3000](http://silly-chat.localtest.me:3000)
 
+### Client tests:
+```shell
+cd client
+npm test
+```
+
 ### TODO
 - Show idle users with idle times ("idle for N minutes" etc)
 - Add CSS - dear God the UI is awful :)
