@@ -8,8 +8,6 @@
 [standard-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg
 [standard-url]: http://standardjs.com/
 
-![Screen shot](https://raw.github.com/maxnachlinger/redux-websocket-example/master/doc/screen.png)
-
 ### Installation:
 Note: This requires a recent version of NodeJS to work.
 ```shell
