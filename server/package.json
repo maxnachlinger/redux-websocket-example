@@ -2,20 +2,19 @@
   "name": "react-websocket-example-server",
   "version": "0.0.1",
   "devDependencies": {
-    "snazzy": "^4.0.1",
-    "standard": "^7.1.2"
+    "snazzy": "^5.0.0",
+    "standard": "^8.6.0"
   },
   "dependencies": {
-    "async": "^2.0.1",
-    "bunyan": "^1.8.1",
+    "bunyan": "^1.8.5",
     "express": "^4.14.0",
-    "express-session": "^1.14.0",
-    "helmet": "^2.1.2",
-    "level": "^1.4.0",
+    "express-session": "^1.14.2",
+    "helmet": "^3.1.0",
+    "level": "^1.5.0",
     "level-session-store": "^2.0.1",
-    "lodash": "^4.15.0",
+    "lodash": "^4.17.2",
     "node-uuid": "^1.4.7",
-    "socket.io": "^1.4.8"
+    "socket.io": "^1.7.2"
   },
   "standard": {
     "ignore": [
