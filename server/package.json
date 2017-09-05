@@ -1,6 +1,6 @@
 {
   "name": "react-websocket-example-server",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "devDependencies": {
     "snazzy": "^7.0.0",
     "standard": "^10.0.3"
