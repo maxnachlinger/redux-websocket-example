@@ -14,6 +14,5 @@ const plugins = [
 ].concat(configBase.plugins)
 
 module.exports = Object.assign({}, configBase, {
-  devtool: 'source-map', // source-maps let us do cool things like add breakpoints in our code
-  debug: true
+  devtool: 'source-map' // source-maps let us do cool things like add breakpoints in our code
 }, { plugins })

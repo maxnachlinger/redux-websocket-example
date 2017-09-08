@@ -9,7 +9,6 @@ const plugins = [
       'NODE_ENV': JSON.stringify('production')
     }
   }),
-  new webpack.optimize.DedupePlugin(),
   new webpack.optimize.OccurrenceOrderPlugin(true),
   new webpack.optimize.UglifyJsPlugin({
     compress: {
