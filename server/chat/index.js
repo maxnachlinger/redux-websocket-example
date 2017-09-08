@@ -13,13 +13,11 @@ const {
   userStoppedTyping
 } = messageTypes
 
-const sendSystemMessage = ({io, message}) => {
-  return io.sockets.emit(messageAdded, {
-    id: uuid.v4(),
-    createdAt: Date.now(),
-    message
-  })
-}
+const sendSystemMessage = ({io, message}) => io.sockets.emit(messageAdded, {
+  id: uuid.v4(),
+  createdAt: Date.now(),
+  message
+})
 
 const onUsersRequested = ({io, socket}) => {
   const event = usersRequested

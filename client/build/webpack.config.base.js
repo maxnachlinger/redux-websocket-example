@@ -1,8 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
-const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin')
 const pkg = require('../package.json')
 
 const srcDir = path.join(__dirname, '/../src')
@@ -25,20 +23,13 @@ module.exports = {
   },
   plugins: [
     // don't emit assets with errors
-    new webpack.NoErrorsPlugin(),
-    new ChunkManifestPlugin({
-      // This is relative to the main webpack output dir
-      filename: './manifests/chunks.json',
-      manifestVariable: 'webpackManifest'
-    }),
+    new webpack.NoEmitOnErrorsPlugin(),
     // creates a vendor.js file will all our external dependencies - this can be aggressively cached
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       filename: 'vendor.min-[hash:6].js',
       minChunks: Infinity
     }),
-    // makes various favicons and injects the html for them
-    new FaviconsWebpackPlugin(path.join(__dirname, '/logo.png')),
     // writes out our index.html
     new HtmlWebpackPlugin({
       title: 'React/Redux Websocket Example',
@@ -57,11 +48,11 @@ module.exports = {
       {
         test: [ /\.js$/ ],
         exclude: /node_modules/,
-        includes: [
+        include: [
           srcDir,
           path.join(srcDir, '/../../common/')
         ],
-        loader: 'babel',
+        loader: 'babel-loader',
         query: {
           // fix per https://github.com/babel/babel-loader/issues/166#issuecomment-160866946
           presets: [
@@ -74,6 +65,6 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: [ '', '.js', '.jsx' ]
+    extensions: [ '.json', '.js', '.jsx' ]
   }
 }

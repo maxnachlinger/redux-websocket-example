@@ -66,7 +66,9 @@ const setup = () => {
 
 const onError = (err) => {
   logger.error(err)
-  process.exit(1)
+  setTimeout(() => {
+    process.exit(1)
+  }, 1000) // given the logger time to write a logs
 }
 
 ensureDir(config.sessionStorePath)

@@ -39,7 +39,8 @@ describe('actions', () => {
     const emit = (type, payload) => emittedMessages.push({ type, payload })
 
     actions.sendMessage(message)(() => {}, getStateStub({ currentUserIsTyping: true }), { emit })
-    expect(emittedMessages).toInclude({ type: messageTypes.userStoppedTyping, payload: undefined })
+    const emittedMessageTypes = emittedMessages.map((m) => m.type)
+    expect(emittedMessageTypes).toContain(messageTypes.userStoppedTyping)
   })
 
   it(`should dispatch a ${typingStarted} message when typing() is called and the user was not already typing`, () => {

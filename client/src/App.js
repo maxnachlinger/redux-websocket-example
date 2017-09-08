@@ -104,4 +104,3 @@ export default Radium(connect(
   mapStateToProps,
   mapDispatchToProps
 )(App))
-
