@@ -29,6 +29,10 @@ body {
   overflow-y: scroll;
 }
 
+.send-message-form-input {
+  width: 180px;
+}
+
 @media only screen  and (min-width : 800px) {
   .messages-and-users {
     display: flex;
@@ -43,5 +47,9 @@ body {
   .user-list {
     display: block;
     width: 20%;
+  }
+
+  .send-message-form-input {
+    width: 250px;
   }
 }

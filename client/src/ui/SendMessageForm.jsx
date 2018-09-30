@@ -7,53 +7,54 @@ class SendMessageForm extends Component {
     super(props);
 
     this.onSendClick = this.onSendClick.bind(this);
-    this.onTextareaKeyDown = this.onTextareaKeyDown.bind(this);
-    this.onTextareaChange = this.onTextareaChange.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.state = { valid: false, name: null };
   }
 
   onSendClick(event) {
     event.preventDefault();
-    if (!this.state.valid) {
+    const { message, valid, typing } = this.state;
+    if (!valid || !message || message.length === 0) {
       return;
     }
 
-    if (this.state.typing) {
+    if (typing) {
       this.state.typing = false;
     }
 
     this.props.sendMessageFn(this.messageInput.value);
     this.messageInput.value = "";
+    this.setState({ valid: false, message: "" });
   }
 
-  onTextareaChange(event) {
+  onChange(event) {
     const message = event.target.value;
     const valid = message && message.length > 0;
     this.setState({ valid, message });
   }
 
-  onTextareaKeyDown() {
+  onKeyDown(event) {
+    if (event.key === "Enter") {
+      return this.onSendClick(event);
+    }
     this.props.typingFn();
   }
 
   render() {
-    let submitDisabled = true;
-    if (this.state.valid) {
-      submitDisabled = false;
-    }
+    const { valid } = this.state;
 
     return (
       <div>
-        <textarea
+        <input
+          class="send-message-form-input"
           ref={(c) => (this.messageInput = c)}
           placeholder="Say something nice"
-          maxLength="500"
-          rows="2"
-          cols="40"
-          onChange={this.onTextareaChange}
-          onKeyDown={this.onTextareaKeyDown}
+          maxLength="200"
+          onChange={this.onChange}
+          onKeyDown={this.onKeyDown}
         />
-        <button onClick={this.onSendClick} disabled={submitDisabled}>
+        <button onClick={this.onSendClick} disabled={!valid}>
           Send
         </button>
       </div>

@@ -14,7 +14,7 @@ const handlers = {
     ...state,
     currentUser,
   }),
-  // current user is already in users
+  // Note: currentUser is already in users
   [userJoined]: ({ state, payload: user }) => ({
     ...state,
     users: state.users.concat([user]),

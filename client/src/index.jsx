@@ -21,7 +21,6 @@ const setupStore = () => {
 
   const middleware = [];
 
-  // use the logger in development mode - this is set in webpack.config.dev.js
   if (process.env.NODE_ENV === "development") {
     const { createLogger } = require("redux-logger");
     middleware.push(createLogger());
@@ -42,11 +41,11 @@ const setupStore = () => {
   });
 };
 
-setupStore().then((store) => {
+setupStore().then((store) =>
   ReactDOM.render(
     <Provider store={store}>
       <App />
     </Provider>,
     document.body,
-  );
-});
+  ),
+);

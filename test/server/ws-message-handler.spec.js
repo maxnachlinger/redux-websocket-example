@@ -63,10 +63,29 @@ describe("ws-message-handler", () => {
 
     handler(JSON.stringify(input));
 
-    expect(ws.send).toHaveBeenCalledWith(
+    expect(ws.send).toHaveBeenNthCalledWith(
+      1,
       JSON.stringify({
         type: joinRequested,
         payload: { id: "test-0", name: "test-0" },
+        metadata: { createdAt: 0 },
+      }),
+    );
+
+    expect(ws.send).toHaveBeenNthCalledWith(
+      2,
+      JSON.stringify({
+        type: userJoined,
+        payload: { id: "test-0", name: "test-0" },
+        metadata: { createdAt: 0 },
+      }),
+    );
+
+    expect(ws.send).toHaveBeenNthCalledWith(
+      3,
+      JSON.stringify({
+        type: messageAdded,
+        payload: { message: "test-0 joined" },
         metadata: { createdAt: 0 },
       }),
     );

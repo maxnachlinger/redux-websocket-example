@@ -28,20 +28,25 @@ const addMetadata = ({ type, payload }) => ({
   },
 });
 
-const broadcast = ({ wss, message }) => {
-  return wss.clients.forEach(
-    (ws) =>
-      ws.readyState === WebSocket.OPEN && ws.send(JSON.stringify(message)),
-  );
+const broadcast = ({ wss, message, excludeUserIds = [] }) => {
+  return wss.clients.forEach((ws) => {
+    if (
+      !_.includes(excludeUserIds, _.get(ws, "req.session.user")) &&
+      ws.readyState === WebSocket.OPEN
+    ) {
+      ws.send(JSON.stringify(message));
+    }
+  });
 };
 
-const sendSystemMessage = ({ wss, message }) =>
+const sendSystemMessage = ({ wss, message, excludeUserIds = [] }) =>
   broadcast({
     wss,
     message: addMetadata({
       type: messageAdded,
       payload: { message },
     }),
+    excludeUserIds,
   });
 
 // user.id -> timerId, for clearing pending userLeft messages on refresh (which
@@ -99,27 +104,21 @@ const handleReconnect = ({ wss, ws, user }) => {
     return;
   }
 
-  ws.send(
-    JSON.stringify(
-      addMetadata({
-        type: joinRequested,
-        payload: user,
-      }),
-    ),
-  );
-  broadcast({
-    wss,
-    message: addMetadata({
-      type: userJoined,
-      payload: user,
-    }),
-  });
+  return onJoinRequested({ wss, ws, payload: user });
 };
 
 const onJoinRequested = ({ wss, ws, payload: { id = uuid(), name } = {} }) => {
   const user = { id, name };
-  ws.req.session.user = user;
-  ws.req.session.save((err) => {
+
+  // ws.req.session.user would be present on a reconnect
+  const sessionSaveFn = ws.req.session.user
+    ? (cb) => cb()
+    : (cb) => {
+        ws.req.session.user = user;
+        ws.req.session.save(cb);
+      };
+
+  sessionSaveFn((err) => {
     if (err) {
       return;
     }
@@ -139,7 +138,11 @@ const onJoinRequested = ({ wss, ws, payload: { id = uuid(), name } = {} }) => {
         payload: user,
       }),
     });
-    return sendSystemMessage({ wss, message: `${user.name} joined` });
+    return sendSystemMessage({
+      wss,
+      message: `${user.name} joined`,
+      excludeUserIds: [user.id],
+    });
   });
 };
 
@@ -170,6 +173,8 @@ const onUserStartedTyping = ({ wss, ws }) => {
         userId: user.id,
       },
     }),
+    // the typing user knows they're typing :)
+    excludeUserIds: [user.id],
   });
 };
 
@@ -184,6 +189,8 @@ const onUserStoppedTyping = ({ wss, ws }) => {
         userId: user.id,
       },
     }),
+    // the user knows they've stopped typing :)
+    excludeUserIds: [user.id],
   });
 };
 
