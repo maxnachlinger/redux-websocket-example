@@ -1,6 +1,5 @@
-.DS_Store
 node_modules
-*.log
 .idea
-server/data/
-server/public/
+.DS_Store
+server/public
+server/.data

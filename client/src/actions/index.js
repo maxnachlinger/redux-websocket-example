@@ -1,56 +1,54 @@
-import * as config from '../../../common/config'
-import * as actionTypes from '../actions/actionTypes'
-const { messageTypes } = config
+import {
+  joinRequested,
+  messageAdded,
+  usersRequested,
+  userStartedTyping,
+  userStoppedTyping,
+} from "../../../common/message-types";
+import {
+  messageSendRequested,
+  typingStarted,
+  typingStopped,
+} from "./actionTypes";
 
-export function startUp () {
-  // this is the redux-middleware package in action, dispatch and getState params are passed in
-  return (dispatch, getState, {emit}) => {
-    emit(messageTypes.usersRequested)
+export const requestUsers = (send) => send(usersRequested);
+
+export const join = (name) => (dispatch, getState, { send }) => {
+  send(joinRequested, { name });
+};
+
+export const sendMessage = (message) => (dispatch, getState, { send }) => {
+  const { currentUserIsTyping } = getState();
+
+  // if we're sending a message we're probably not also typing :)
+  if (currentUserIsTyping) {
+    dispatch({ type: typingStopped });
+    send(userStoppedTyping);
   }
-}
 
-export function join (name) {
-  return (dispatch, getState, {emit}) => {
-    emit(messageTypes.joinRequested, { name })
+  dispatch({ type: messageSendRequested });
+  send(messageAdded, { message });
+};
+
+const typingTimerLength = 400;
+
+export const typing = () => (dispatch, getState, { send }) => {
+  const { currentUserIsTyping } = getState();
+  // don't spam "typing" events and websocket messages
+  if (!currentUserIsTyping) {
+    dispatch({ type: typingStarted });
+    send(userStartedTyping);
   }
-}
 
-export function sendMessage (message) {
-  return (dispatch, getState, {emit}) => {
-    const typing = getState().get('currentUserIsTyping')
+  const lastTypingTime = Date.now();
 
-    // if we're sending a message we're probably not also typing :)
-    if (typing) {
-      dispatch({ type: actionTypes.typingStopped })
-      emit(messageTypes.userStoppedTyping)
+  setTimeout(() => {
+    const { currentUserIsTyping } = getState();
+    const timeDiff = Date.now() - lastTypingTime;
+
+    if (timeDiff >= typingTimerLength && currentUserIsTyping) {
+      dispatch({ type: typingStopped });
+      send(userStoppedTyping);
     }
-
-    dispatch({ type: actionTypes.messageSendRequested })
-    emit(messageTypes.messageAdded, { message })
-  }
-}
-
-export function typing () {
-  const typingTimerLength = 400
-
-  return (dispatch, getState, {emit}) => {
-    const typing = getState().get('currentUserIsTyping')
-    // don't spam "typing" events and websocket messages
-    if (!typing) {
-      dispatch({ type: actionTypes.typingStarted })
-      emit(messageTypes.userStartedTyping)
-    }
-
-    const lastTypingTime = Date.now()
-
-    setTimeout(() => {
-      const typing = getState().get('currentUserIsTyping')
-      const timeDiff = Date.now() - lastTypingTime
-
-      if (timeDiff >= typingTimerLength && typing) {
-        dispatch({ type: actionTypes.typingStopped })
-        emit(messageTypes.userStoppedTyping)
-      }
-    }, typingTimerLength)
-  }
-}
+  }, typingTimerLength);
+};
