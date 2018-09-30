@@ -1,0 +1,47 @@
+body {
+  font-family: sans-serif;
+}
+
+.messages-and-users {
+  display: flex;
+  flex-direction: column;
+}
+
+.message-list {
+  width: 100%;
+}
+
+.user-list {
+  display: none;
+}
+
+.message {
+  font-size: small;
+}
+
+.message .created-at {
+  text-align: right;
+  float: right;
+}
+
+.messages-list {
+  max-height: 80%;
+  overflow-y: scroll;
+}
+
+@media only screen  and (min-width : 800px) {
+  .messages-and-users {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .message-list {
+    width: 80%;
+    padding-right: 10px;
+  }
+
+  .user-list {
+    display: block;
+    width: 20%;
+  }
+}

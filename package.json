@@ -1,0 +1,70 @@
+{
+  "name": "redux-websocket-example",
+  "version": "0.0.1",
+  "author": "Max Nachlinger",
+  "license": "ISC",
+  "description": "A websocket example",
+  "keywords": [],
+  "engines": {
+    "node": ">=10.0.0 <11.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/maxnachlinger/redux-websocket-example/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@githib.com:maxnachlinger/redux-websocket-example.git"
+  },
+  "scripts": {
+    "fmt": "node_modules/.bin/prettier --write '**/*.js*'",
+    "build-client-prod": "webpack --config client/build/webpack-prod.js",
+    "build-client-dev": "webpack --config client/build/webpack-dev.js",
+    "pretest": "npm run fmt",
+    "test": "jest",
+    "start-dev": "concurrently --kill-others 'npm run build-client-dev' 'node ./server/server.js'",
+    "start-prod": "npm run build-client-prod && node ./server/server.js"
+  },
+  "dependencies": {
+    "bufferutil": "4.0.0",
+    "express-session": "1.15.6",
+    "fs-extra": "7.0.0",
+    "helmet": "3.13.0",
+    "level": "4.0.0",
+    "level-session-store": "2.1.0",
+    "polka": "0.5.0",
+    "serve-static": "1.13.2",
+    "utf-8-validate": "5.0.1",
+    "uuid": "3.3.2",
+    "ws": "6.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.1.0",
+    "@babel/plugin-syntax-object-rest-spread": "7.0.0",
+    "@babel/preset-env": "7.1.0",
+    "@babel/preset-react": "7.0.0",
+    "assets-webpack-plugin": "3.9.6",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "23.6.0",
+    "babel-loader": "8.0.2",
+    "browserslist": "4.1.1",
+    "clean-webpack-plugin": "0.1.19",
+    "compression-webpack-plugin": "2.0.0",
+    "concurrently": "4.0.1",
+    "css-loader": "1.0.0",
+    "html-webpack-plugin": "3.2.0",
+    "jest": "23.6.0",
+    "jest-cli": "23.6.0",
+    "mini-css-extract-plugin": "0.4.3",
+    "optimize-css-assets-webpack-plugin": "5.0.1",
+    "preact": "8.3.1",
+    "preact-compat": "3.18.4",
+    "preact-redux": "2.0.3",
+    "prettier": "1.14.3",
+    "redux": "4.0.0",
+    "redux-logger": "3.0.6",
+    "redux-thunk": "2.3.0",
+    "webpack": "4.19.1",
+    "webpack-bundle-analyzer": "3.0.2",
+    "webpack-cli": "3.1.0"
+  }
+}

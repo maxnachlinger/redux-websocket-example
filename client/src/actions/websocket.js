@@ -1,16 +1,13 @@
-import io from 'socket.io-client'
-import {messageTypes, uri} from '../../../common/config'
-const socket = io(uri)
+export const setupWebsocket = ({ host, port }) =>
+  new Promise((resolve) => {
+    const webSocket = new WebSocket(`ws://${host}:${port}`);
 
-const init = (store) => {
-  // add listeners to socket messages so we can re-dispatch them as actions
-  Object.keys(messageTypes)
-    .forEach(type => socket.on(type, (payload) => store.dispatch({ type, payload })))
-}
+    const receive = (onMessageCb) => {
+      webSocket.onmessage = (event) => onMessageCb(JSON.parse(event.data));
+    };
 
-const emit = (type, payload) => socket.emit(type, payload)
+    const send = (type, payload) =>
+      webSocket.send(JSON.stringify({ type, payload }));
 
-export {
-  init,
-  emit
-}
+    webSocket.onopen = () => resolve({ send, receive });
+  });
