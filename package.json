@@ -65,6 +65,6 @@
     "redux-thunk": "2.3.0",
     "webpack": "4.29.1",
     "webpack-bundle-analyzer": "3.0.3",
-    "webpack-cli": "3.2.1"
+    "webpack-cli": "3.2.2"
   }
 }
