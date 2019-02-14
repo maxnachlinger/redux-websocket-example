@@ -30,7 +30,7 @@
     "fs-extra": "7.0.1",
     "helmet": "3.15.1",
     "level": "4.0.0",
-    "level-session-store": "2.1.0",
+    "level-session-store": "2.2.0",
     "polka": "0.5.2",
     "serve-static": "1.13.2",
     "utf-8-validate": "5.0.2",
