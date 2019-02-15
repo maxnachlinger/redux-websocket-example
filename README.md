@@ -1,7 +1,5 @@
 # react/redux websocket example
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/maxnachlinger/redux-websocket-example.svg)](https://greenkeeper.io/)
-
 [![travis][travis-image]][travis-url]
 
 [travis-image]: https://travis-ci.org/maxnachlinger/redux-websocket-example.svg?branch=master
