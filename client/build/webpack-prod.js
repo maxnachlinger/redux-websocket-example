@@ -32,11 +32,8 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loader: "babel-loader",
-        options: {
-          compact: true,
-        },
+        exclude: /(node_modules|bower_components)/,
+        use: ["babel-loader"],
       },
       {
         test: /\.css$/,
