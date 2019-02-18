@@ -16,7 +16,7 @@ npm i
 
 ### Running this app:
 ```shell
-npm run start-dev
+npm start
 ```
 The app runs at [http://silly-chat.localtest.me:3000](http://silly-chat.localtest.me:3000)
 
