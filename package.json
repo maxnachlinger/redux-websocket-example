@@ -21,7 +21,8 @@
     "build-client-dev": "webpack --config client/build/webpack-dev.js",
     "pretest": "npm run fmt",
     "test": "jest",
-    "start": "concurrently --kill-others 'npm run build-client-dev' 'node ./server/server.js'"
+    "start": "concurrently --kill-others 'npm run build-client-dev' 'node ./server/server.js'",
+    "start-prod": "concurrently --kill-others 'npm run build-client-prod' 'node ./server/server.js'",
   },
   "dependencies": {
     "bufferutil": "4.0.1",
