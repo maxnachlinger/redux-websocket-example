@@ -1,5 +1,5 @@
 const webpack = require("webpack");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const AssetsPlugin = require("assets-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -53,8 +53,8 @@ module.exports = {
     },
   },
   plugins: [
-    new CleanWebpackPlugin(outputPath, {
-      allowExternal: true,
+    new CleanWebpackPlugin({
+      dangerouslyAllowCleanPatternsOutsideProject: true,
     }),
     new webpack.DefinePlugin({
       "process.env": {

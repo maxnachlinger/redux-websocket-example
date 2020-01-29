@@ -57,7 +57,4 @@ const mapDispatchToProps = (dispatch) => ({
   joinFn: (name) => dispatch(join(name)),
 });
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(JoinForm);
+export default connect(null, mapDispatchToProps)(JoinForm);

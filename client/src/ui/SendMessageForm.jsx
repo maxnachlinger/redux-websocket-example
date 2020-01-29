@@ -67,7 +67,4 @@ const mapDispatchToProps = (dispatch) => ({
   typingFn: () => dispatch(typing()),
 });
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(SendMessageForm);
+export default connect(null, mapDispatchToProps)(SendMessageForm);
